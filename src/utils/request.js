@@ -67,7 +67,7 @@ export default function request(url, options) {
       };
     }
   }
-
+  console.dir(newOptions);
   return fetch(url, newOptions)
     .then(checkStatus)
     .then(response => {

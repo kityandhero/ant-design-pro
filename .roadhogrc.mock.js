@@ -71,7 +71,7 @@ const proxy = {
   'GET /api/fake_chart_data': getFakeChartData,
   'GET /api/profile/basic': getProfileBasicData,
   'GET /api/profile/advanced': getProfileAdvancedData,
-  'POST /api/login/account': (req, res) => {
+  'POST /api/Account/SignIn': (req, res) => {
     const { password, userName, type } = req.body;
     if (password === '888888' && userName === 'admin') {
       res.send({
@@ -96,6 +96,7 @@ const proxy = {
     });
   },
   'POST /api/register': (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.send({ status: 'ok', currentAuthority: 'user' });
   },
   'GET /api/notices': getNotices,
@@ -138,3 +139,6 @@ const proxy = {
 };
 
 export default (noProxy ? {} : delay(proxy, 1000));
+// export default {
+//   '/*': 'https://sys.pa.com/',
+// };

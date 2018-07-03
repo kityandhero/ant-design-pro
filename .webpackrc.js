@@ -6,6 +6,13 @@ export default {
   env: {
     development: {
       extraBabelPlugins: ['dva-hmr'],
+      proxy: {
+        '/api': {
+          target: 'http://sys.pa.com/',
+          changeOrigin: true,
+          pathRewrite: { '^/api': '' },
+        },
+      },
     },
   },
   externals: {

@@ -1,5 +1,6 @@
 import { stringify } from 'qs';
 import request from '../utils/request';
+// const basicUrl = 'http://sys.pa.com';
 
 export async function queryProjectNotice() {
   return request('/api/project/notice');
@@ -61,7 +62,7 @@ export async function queryFakeList(params) {
 }
 
 export async function fakeAccountLogin(params) {
-  return request('/api/login/account', {
+  return request('/api/Account/SignIn', {
     method: 'POST',
     body: params,
   });
