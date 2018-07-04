@@ -8,7 +8,7 @@ import { ContainerQuery } from 'react-container-query';
 import classNames from 'classnames';
 import pathToRegexp from 'path-to-regexp';
 import { enquireScreen, unenquireScreen } from 'enquire-js';
-import GlobalHeader from '../components/GlobalHeader';
+import GlobalHeaderCustom from '../components/GlobalHeaderCustom';
 import GlobalFooter from '../components/GlobalFooter';
 import SiderMenu from '../components/SiderMenu';
 import NotFound from '../routes/Exception/404';
@@ -227,7 +227,7 @@ class BasicLayout extends React.PureComponent {
         />
         <Layout>
           <Header style={{ padding: 0 }}>
-            <GlobalHeader
+            <GlobalHeaderCustom
               logo={logo}
               currentUser={currentUser}
               fetchingNotices={fetchingNotices}
