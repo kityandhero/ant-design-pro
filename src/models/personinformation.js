@@ -40,12 +40,6 @@ export default {
     save(state, action) {
       // console.dir(action);
       const d = action.payload;
-      // for (const key in d.list) {
-      //   if (d.list.hasOwnProperty(key)) {
-      //     const o = d.list[key];
-      //     o.key = o.personnelId;
-      //   }
-      // }
       for (const o of d.list) {
         o.key = o.personnelId;
       }
