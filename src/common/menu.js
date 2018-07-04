@@ -23,6 +23,17 @@ const menuData = [
     ],
   },
   {
+    name: '贫困户信息',
+    icon: 'form',
+    path: 'personinformation',
+    children: [
+      {
+        name: '基础信息',
+        path: 'basiclist',
+      },
+    ],
+  },
+  {
     name: '表单页',
     icon: 'form',
     path: 'form',

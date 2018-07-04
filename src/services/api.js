@@ -11,6 +11,7 @@ export async function queryActivities() {
 }
 
 export async function queryRule(params) {
+  // console.dir(params);
   return request(`/api/rule?${stringify(params)}`);
 }
 
