@@ -50,6 +50,20 @@ const map = {
       },
     ],
   },
+  ImageCaptcha: {
+    component: Input,
+    props: {
+      size: 'large',
+      prefix: <Icon type="mail" className={styles.prefixIcon} />,
+      placeholder: 'image captcha',
+    },
+    rules: [
+      {
+        required: true,
+        message: 'Please enter Image Captcha!',
+      },
+    ],
+  },
   Captcha: {
     component: Input,
     props: {

@@ -33,9 +33,10 @@ export default {
       };
     },
     saveCurrentUser(state, action) {
+      // console.dir(action.payload.data.povertyAlleviationAgencyUser);
       return {
         ...state,
-        currentUser: action.payload || {},
+        currentUser: action.payload.data.povertyAlleviationAgencyUser || {},
       };
     },
     changeNotifyCount(state, action) {

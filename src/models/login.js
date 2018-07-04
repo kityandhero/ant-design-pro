@@ -20,7 +20,8 @@ export default {
         payload: response,
       });
       // Login successfully
-      if (response.status === 'ok') {
+      if (response.status === 200) {
+        // console.dir(response);
         reloadAuthorized();
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
@@ -62,11 +63,13 @@ export default {
 
   reducers: {
     changeLoginStatus(state, { payload }) {
-      setAuthority(payload.currentAuthority);
+      // console.dir(payload);
+      setAuthority(payload.data.currentAuthority);
+      localStorage.setItem('key', payload.data.key);
       return {
         ...state,
         status: payload.status,
-        type: payload.type,
+        type: payload.data.roleName,
       };
     },
   },

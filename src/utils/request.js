@@ -45,6 +45,9 @@ function checkStatus(response) {
 export default function request(url, options) {
   const defaultOptions = {
     credentials: 'include',
+    headers: {
+      key: localStorage.getItem('key') || '',
+    },
   };
   const newOptions = { ...defaultOptions, ...options };
   if (
@@ -67,13 +70,14 @@ export default function request(url, options) {
       };
     }
   }
-  console.dir(newOptions);
+  // console.dir(newOptions);
   return fetch(url, newOptions)
     .then(checkStatus)
     .then(response => {
       if (newOptions.method === 'DELETE' || response.status === 204) {
         return response.text();
       }
+
       return response.json();
     })
     .catch(e => {

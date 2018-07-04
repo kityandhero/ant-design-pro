@@ -7,6 +7,10 @@ import map from './map';
 
 const FormItem = Form.Item;
 
+// function Img(props){
+//   return <img src={props.src} />
+// };
+
 function generator({ defaultProps, defaultRules, type }) {
   return WrappedComponent => {
     return class BasicComponent extends Component {
@@ -50,6 +54,16 @@ function generator({ defaultProps, defaultRules, type }) {
         }, 1000);
       };
 
+      onFreshImageCaptcha = () => {
+        let { src } = this.props;
+        src = `${src}?t=${new Date().getTime()}`;
+        this.setState({ src });
+        const { onFreshImageCaptcha } = this.props;
+        if (onFreshImageCaptcha) {
+          onFreshImageCaptcha();
+        }
+      };
+
       render() {
         const { form } = this.context;
         const { getFieldDecorator } = form;
@@ -83,6 +97,30 @@ function generator({ defaultProps, defaultRules, type }) {
                     onClick={this.onGetCaptcha}
                   >
                     {count ? `${count} s` : '获取验证码'}
+                  </Button>
+                </Col>
+              </Row>
+            </FormItem>
+          );
+        }
+        if (type === 'ImageCaptcha') {
+          const inputProps = omit(otherProps, ['onFreshImageCaptcha']);
+          const { src } = this.state;
+          return (
+            <FormItem>
+              <Row gutter={8}>
+                <Col span={16}>
+                  {getFieldDecorator(name, options)(
+                    <WrappedComponent {...defaultProps} {...inputProps} />
+                  )}
+                </Col>
+                <Col span={8}>
+                  <Button
+                    className={styles.getCaptcha}
+                    size="large"
+                    onClick={this.onFreshImageCaptcha}
+                  >
+                    <img src={src || inputProps.src} alt="" />
                   </Button>
                 </Col>
               </Row>
