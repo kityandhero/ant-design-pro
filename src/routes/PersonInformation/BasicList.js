@@ -279,7 +279,7 @@ export default class BasicList extends PureComponent {
     const { selectedRows } = this.state;
     // console.dir(data);
     const scroll = {
-      x: 2300,
+      x: 1300,
     };
     const columns = [
       {
@@ -291,37 +291,37 @@ export default class BasicList extends PureComponent {
       {
         title: '与户主关系',
         dataIndex: 'relationshipWithHouseholderNote',
-        width: 120,
+        // width: 120,
       },
       {
         title: '证件类型',
         dataIndex: 'idCardType',
-        width: 100,
+        // width: 100,
       },
       {
         title: '证件号码',
         dataIndex: 'idCard',
-        width: 220,
+        // width: 220,
       },
       {
         title: '年龄',
         dataIndex: 'age',
-        width: 80,
+        // width: 80,
       },
       {
         title: '家庭人口数',
         dataIndex: 'memberCount',
-        width: 120,
+        // width: 120,
       },
       {
         title: '贫困户属性',
         dataIndex: 'poorTypeNote',
-        width: 120,
+        // width: 120,
       },
       {
         title: '脱贫属性',
         dataIndex: 'shakeOffPovertyNote',
-        width: 100,
+        // width: 100,
       },
       // {
       //   title: '服务调用次数',
@@ -335,7 +335,7 @@ export default class BasicList extends PureComponent {
       {
         title: '状态',
         dataIndex: 'status',
-        width: 100,
+        // width: 100,
         filters: [
           {
             text: status[0],
@@ -362,13 +362,13 @@ export default class BasicList extends PureComponent {
       {
         title: '更新时间',
         dataIndex: 'updatedAt',
-        width: 140,
+        // width: 140,
         sorter: true,
         render: val => <span>{moment(val).format('YYYY-MM-DD HH:mm:ss')}</span>,
       },
       {
         title: '操作',
-        width: 180,
+        width: 140,
         fixed: 'right',
         render: () => (
           <Fragment>
