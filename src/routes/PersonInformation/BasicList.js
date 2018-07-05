@@ -64,7 +64,7 @@ export default class BasicList extends PureComponent {
     }, {});
 
     const params = {
-      currentPage: pagination.current,
+      pageNo: pagination.current,
       pageSize: pagination.pageSize,
       ...formValues,
       ...filters,
@@ -277,7 +277,7 @@ export default class BasicList extends PureComponent {
       loading,
     } = this.props;
     const { selectedRows } = this.state;
-    // console.dir(data);
+    // console.dir(this.props);
     const scroll = {
       x: 1300,
     };
@@ -286,42 +286,43 @@ export default class BasicList extends PureComponent {
         title: '姓名',
         dataIndex: 'name',
         width: 100,
+        align: 'center',
         fixed: 'left',
       },
       {
         title: '与户主关系',
         dataIndex: 'relationshipWithHouseholderNote',
-        // width: 120,
+        align: 'center',
       },
       {
         title: '证件类型',
         dataIndex: 'idCardType',
-        // width: 100,
+        align: 'center',
       },
       {
         title: '证件号码',
         dataIndex: 'idCard',
-        // width: 220,
+        align: 'center',
       },
       {
         title: '年龄',
         dataIndex: 'age',
-        // width: 80,
+        align: 'center',
       },
       {
         title: '家庭人口数',
         dataIndex: 'memberCount',
-        // width: 120,
+        align: 'center',
       },
       {
         title: '贫困户属性',
         dataIndex: 'poorTypeNote',
-        // width: 120,
+        align: 'center',
       },
       {
         title: '脱贫属性',
         dataIndex: 'shakeOffPovertyNote',
-        // width: 100,
+        align: 'center',
       },
       // {
       //   title: '服务调用次数',
@@ -335,7 +336,7 @@ export default class BasicList extends PureComponent {
       {
         title: '状态',
         dataIndex: 'status',
-        // width: 100,
+        align: 'center',
         filters: [
           {
             text: status[0],
@@ -362,13 +363,14 @@ export default class BasicList extends PureComponent {
       {
         title: '更新时间',
         dataIndex: 'updatedAt',
-        // width: 140,
+        align: 'center',
         sorter: true,
         render: val => <span>{moment(val).format('YYYY-MM-DD HH:mm:ss')}</span>,
       },
       {
         title: '操作',
         width: 140,
+        align: 'center',
         fixed: 'right',
         render: () => (
           <Fragment>
