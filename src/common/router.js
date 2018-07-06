@@ -93,6 +93,14 @@ export const getRouterData = app => {
         import('../routes/PersonInformation/BasicList')
       ),
     },
+    '/familyinformation': {
+      component: dynamicWrapper(app, [], () => import('../layouts/FamilyInformationHeaderLayout')),
+    },
+    '/familyinformation/basicinfo': {
+      component: dynamicWrapper(app, ['familyinformation'], () =>
+        import('../routes/FamilyInformation/BasicInfo')
+      ),
+    },
     '/form/basic-form': {
       component: dynamicWrapper(app, ['form'], () => import('../routes/Forms/BasicForm')),
     },
