@@ -17,7 +17,7 @@ import {
   // Modal,
   // message,
   Badge,
-  Divider,
+  // Divider,
 } from 'antd';
 import StandardTableCustom from 'components/StandardTableCustom';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
@@ -160,11 +160,11 @@ export default class BasicList extends PureComponent {
       <Form onSubmit={this.handleSearch} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
-            <FormItem label="规则编号">
-              {getFieldDecorator('no')(<Input placeholder="请输入" />)}
+            <FormItem label="关键词">
+              {getFieldDecorator('keywords')(<Input placeholder="请输入需要搜索的内容" />)}
             </FormItem>
           </Col>
-          <Col md={8} sm={24}>
+          {/* <Col md={8} sm={24}>
             <FormItem label="使用状态">
               {getFieldDecorator('status')(
                 <Select placeholder="请选择" style={{ width: '100%' }}>
@@ -173,7 +173,7 @@ export default class BasicList extends PureComponent {
                 </Select>
               )}
             </FormItem>
-          </Col>
+          </Col> */}
           <Col md={8} sm={24}>
             <span className={styles.submitButtons}>
               <Button type="primary" htmlType="submit">
@@ -369,14 +369,14 @@ export default class BasicList extends PureComponent {
       },
       {
         title: '操作',
-        width: 140,
+        width: 78,
         align: 'center',
         fixed: 'right',
         render: () => (
           <Fragment>
-            <a href="">配置</a>
-            <Divider type="vertical" />
-            <a href="">订阅警报</a>
+            <a href="">
+              <Icon type="edit" className={styles.editButton} />编辑
+            </a>
           </Fragment>
         ),
       },

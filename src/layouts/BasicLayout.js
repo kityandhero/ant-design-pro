@@ -277,7 +277,13 @@ class BasicLayout extends React.PureComponent {
                 {
                   key: 'Ant Design',
                   title: 'Ant Design',
-                  href: 'http://ant.design',
+                  href: 'https://ant.design/docs/react/introduce-cn',
+                  blankTarget: true,
+                },
+                {
+                  key: 'Ant Design Pro',
+                  title: 'Ant Design Pro',
+                  href: 'https://pro.ant.design/docs/getting-started-cn',
                   blankTarget: true,
                 },
               ]}
