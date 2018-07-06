@@ -38,19 +38,36 @@ export default {
 
   reducers: {
     save(state, action) {
-      // console.dir(action);
-      const d = action.payload;
-      for (const o of d.list) {
-        o.key = o.personnelId;
+      let d = action.payload;
+
+      if (d === undefined) {
+        d = {
+          list: [],
+        };
       }
-      d.pagination = {
-        total: d.total,
-        pageSize: d.pageSize,
-        current: parseInt(d.pageNo, 10) || 1,
-      };
+
+      const { status } = d;
+
+      if (status === 200) {
+        for (const o of d.list) {
+          o.key = o.personnelId;
+        }
+
+        d.pagination = {
+          total: d.total,
+          pageSize: d.pageSize,
+          current: parseInt(d.pageNo, 10) || 1,
+        };
+      } else {
+        d.pagination = {
+          total: 0,
+          pageSize: 10,
+          current: 1,
+        };
+      }
       return {
         ...state,
-        data: action.payload,
+        data: d,
       };
     },
   },

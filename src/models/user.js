@@ -33,10 +33,21 @@ export default {
       };
     },
     saveCurrentUser(state, action) {
+      let d = action.payload;
+      if (d === undefined) {
+        d = {};
+      }
+      const { status } = d;
+
+      if (status === 200) {
+        d = action.payload.data.povertyAlleviationAgencyUser;
+      } else {
+        d = {};
+      }
       // console.dir(action.payload.data.povertyAlleviationAgencyUser);
       return {
         ...state,
-        currentUser: action.payload.data.povertyAlleviationAgencyUser || {},
+        currentUser: d || {},
       };
     },
     changeNotifyCount(state, action) {
@@ -45,6 +56,7 @@ export default {
         currentUser: {
           ...state.currentUser,
           notifyCount: action.payload,
+          // notifyCount: 0,
         },
       };
     },

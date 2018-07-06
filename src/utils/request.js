@@ -74,15 +74,39 @@ export default function request(url, options) {
   return fetch(url, newOptions)
     .then(checkStatus)
     .then(response => {
+      // console.dir(response);
+
       if (newOptions.method === 'DELETE' || response.status === 204) {
         return response.text();
       }
 
       return response.json();
     })
+    .then(response => {
+      const { status } = response;
+
+      if (status !== undefined) {
+        if (status === 405) {
+          // throw {
+          //   name: status,
+          // };
+
+          throw new Error({
+            name: status,
+          });
+        }
+      }
+
+      return response;
+    })
     .catch(e => {
+      console.dir(e);
       const { dispatch } = store;
       const status = e.name;
+      if (status === 405) {
+        dispatch(routerRedux.replace('/user/login'));
+        return;
+      }
       if (status === 401) {
         dispatch({
           type: 'login/logout',

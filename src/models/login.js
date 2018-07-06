@@ -63,7 +63,6 @@ export default {
 
   reducers: {
     changeLoginStatus(state, { payload }) {
-      // console.dir(payload);
       setAuthority(payload.data.currentAuthority);
       localStorage.setItem('key', payload.data.key);
       return {
