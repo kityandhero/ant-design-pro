@@ -87,10 +87,7 @@ export default function request(url, options) {
 
       if (status !== undefined) {
         if (status === 405) {
-          throw new Error({
-            status,
-          });
-          // throw '405';
+          throw new Error('405');
         }
       }
 
@@ -98,7 +95,7 @@ export default function request(url, options) {
     })
     .catch(e => {
       const { dispatch } = store;
-      if (e === '405') {
+      if (e.message === '405') {
         dispatch(routerRedux.replace('/user/login'));
         return;
       }
