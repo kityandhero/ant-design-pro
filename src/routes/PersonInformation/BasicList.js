@@ -1,5 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
+import { routerRedux } from 'dva/router';
 import moment from 'moment';
 import {
   Row,
@@ -47,7 +48,6 @@ export default class BasicList extends PureComponent {
 
   componentDidMount() {
     const { dispatch } = this.props;
-    // console.dir(dispatch);
     dispatch({
       type: 'personinformation/fetch',
     });
@@ -123,6 +123,12 @@ export default class BasicList extends PureComponent {
     }
   };
 
+  // handleEditClick = e => {
+  handleEditClick = () => {
+    const { dispatch } = this.props;
+    dispatch(routerRedux.push('/familyinformation/details/basicinfo'));
+  };
+
   handleSelectRows = rows => {
     this.setState({
       selectedRows: rows,
@@ -154,6 +160,7 @@ export default class BasicList extends PureComponent {
   };
 
   renderSimpleForm() {
+    // console.dir(this.props);
     const { form } = this.props;
     const { getFieldDecorator } = form;
     return (
@@ -374,7 +381,7 @@ export default class BasicList extends PureComponent {
         fixed: 'right',
         render: () => (
           <Fragment>
-            <a href="">
+            <a onClick={this.handleEditClick}>
               <Icon type="edit" className={styles.editButton} />编辑
             </a>
           </Fragment>

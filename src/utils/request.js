@@ -87,26 +87,23 @@ export default function request(url, options) {
 
       if (status !== undefined) {
         if (status === 405) {
-          // throw {
-          //   name: status,
-          // };
-
           throw new Error({
-            name: status,
+            status,
           });
+          // throw '405';
         }
       }
 
       return response;
     })
     .catch(e => {
-      console.dir(e);
       const { dispatch } = store;
-      const status = e.name;
-      if (status === 405) {
+      if (e === '405') {
         dispatch(routerRedux.replace('/user/login'));
         return;
       }
+
+      const status = e.name;
       if (status === 401) {
         dispatch({
           type: 'login/logout',
