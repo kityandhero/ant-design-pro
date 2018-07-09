@@ -25,16 +25,28 @@ const action = (
 
 const tabList = [
   {
-    key: 'index',
+    key: 'basicinfo',
     tab: '基本资料',
   },
   {
-    key: 'income',
-    tab: '收入情况',
+    key: 'memberinfo',
+    tab: '家庭成员',
   },
   {
-    key: 'card',
-    tab: '档卡资料',
+    key: 'incomeexpenditureyearstatistic',
+    tab: '收支状况',
+  },
+  {
+    key: 'familyinformationproperty',
+    tab: '产业信息',
+  },
+  {
+    key: 'helpmeasuresandresult',
+    tab: '帮扶措施',
+  },
+  {
+    key: 'informationchangelog',
+    tab: '操作记录',
   },
 ];
 
@@ -60,14 +72,23 @@ export default class Details extends PureComponent {
   handleTabChange = key => {
     const { dispatch, match } = this.props;
     switch (key) {
-      case 'index':
-        dispatch(routerRedux.push(`${match.url}/index`));
+      case 'basicinfo':
+        dispatch(routerRedux.push(`${match.url}/basicinfo`));
         break;
-      case 'income':
-        dispatch(routerRedux.push(`${match.url}/income`));
+      case 'memberinfo':
+        dispatch(routerRedux.push(`${match.url}/memberinfo`));
         break;
-      case 'card':
-        dispatch(routerRedux.push(`${match.url}/card`));
+      case 'incomeexpenditureyearstatistic':
+        dispatch(routerRedux.push(`${match.url}/incomeexpenditureyearstatistic`));
+        break;
+      case 'familyinformationproperty':
+        dispatch(routerRedux.push(`${match.url}/familyinformationproperty`));
+        break;
+      case 'helpmeasuresandresult':
+        dispatch(routerRedux.push(`${match.url}/helpmeasuresandresult`));
+        break;
+      case 'informationchangelog':
+        dispatch(routerRedux.push(`${match.url}/informationchangelog`));
         break;
       default:
         break;
