@@ -1,4 +1,9 @@
-import { queryBasicInfo } from '../services/familyinformation';
+import { message } from 'antd';
+import {
+  queryBasicInfo,
+  querySaveBasicInfo,
+  queryProductionAndLife,
+} from '../services/familyinformation';
 
 export default {
   namespace: 'familyinformation',
@@ -16,6 +21,18 @@ export default {
         type: 'save',
         payload: response,
       });
+    },
+    *savebasicinfo({ payload }, { call }) {
+      yield call(querySaveBasicInfo, payload);
+      // const response = yield call(querySaveBasicInfo, payload);
+      // console.dir(response);
+      message.success('提交成功');
+    },
+    *saveproductionandlife({ payload }, { call }) {
+      yield call(queryProductionAndLife, payload);
+      // const response = yield call(queryProductionAndLife, payload);
+      // console.dir(response);
+      message.success('提交成功');
     },
   },
 

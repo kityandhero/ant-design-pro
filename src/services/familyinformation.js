@@ -6,3 +6,17 @@ export async function queryBasicInfo(params) {
     body: params,
   });
 }
+
+export async function querySaveBasicInfo(params) {
+  return request('/api/FamilyInformation/UpdateBasicInfo', {
+    method: 'POST',
+    body: params,
+  });
+}
+
+export async function queryProductionAndLife(params) {
+  return request('/api/FamilyInformation/UpdateProductionAndLife', {
+    method: 'POST',
+    body: params,
+  });
+}
