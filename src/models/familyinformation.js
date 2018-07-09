@@ -25,13 +25,20 @@ export default {
     *savebasicinfo({ payload }, { call }) {
       yield call(querySaveBasicInfo, payload);
       // const response = yield call(querySaveBasicInfo, payload);
-      // console.dir(response);
+      // console.dir(1);
+      // yield put({
+      //   type: 'savebasicinfosuccess',
+      //   payload: response,
+      // });
       message.success('提交成功');
     },
     *saveproductionandlife({ payload }, { call }) {
       yield call(queryProductionAndLife, payload);
       // const response = yield call(queryProductionAndLife, payload);
-      // console.dir(response);
+      // yield put({
+      //   type: 'saveproductionandlifesuccess',
+      //   payload: response,
+      // });
       message.success('提交成功');
     },
   },
