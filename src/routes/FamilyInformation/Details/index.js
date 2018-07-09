@@ -5,7 +5,7 @@ import { Button, Row, Col } from 'antd';
 import DescriptionList from '../../../components/DescriptionList';
 import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
 import { getRoutes } from '../../../utils/utils';
-import styles from '../style.less';
+import styles from './style.less';
 
 const params = {
   familyId: 1000,
