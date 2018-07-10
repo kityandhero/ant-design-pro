@@ -1,8 +1,9 @@
 import { message } from 'antd';
 import {
   queryBasicInfo,
-  querySaveBasicInfo,
-  queryProductionAndLife,
+  saveBasicInfo,
+  saveProductionAndLife,
+  saveMemberInfo,
 } from '../services/familyinformation';
 
 export default {
@@ -23,7 +24,7 @@ export default {
       });
     },
     *savebasicinfo({ payload }, { call }) {
-      yield call(querySaveBasicInfo, payload);
+      yield call(saveBasicInfo, payload);
       // const response = yield call(querySaveBasicInfo, payload);
       // yield put({
       //   type: 'savebasicinfosuccess',
@@ -32,7 +33,16 @@ export default {
       message.success('提交成功');
     },
     *saveproductionandlife({ payload }, { call }) {
-      yield call(queryProductionAndLife, payload);
+      yield call(saveProductionAndLife, payload);
+      // const response = yield call(queryProductionAndLife, payload);
+      // yield put({
+      //   type: 'saveproductionandlifesuccess',
+      //   payload: response,
+      // });
+      message.success('提交成功');
+    },
+    *savememberinfo({ payload }, { call }) {
+      yield call(saveMemberInfo, payload);
       // const response = yield call(queryProductionAndLife, payload);
       // yield put({
       //   type: 'saveproductionandlifesuccess',

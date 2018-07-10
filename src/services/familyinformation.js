@@ -7,15 +7,22 @@ export async function queryBasicInfo(params) {
   });
 }
 
-export async function querySaveBasicInfo(params) {
+export async function saveBasicInfo(params) {
   return request('/api/FamilyInformation/UpdateBasicInfo', {
     method: 'POST',
     body: params,
   });
 }
 
-export async function queryProductionAndLife(params) {
+export async function saveProductionAndLife(params) {
   return request('/api/FamilyInformation/UpdateProductionAndLife', {
+    method: 'POST',
+    body: params,
+  });
+}
+
+export async function saveMemberInfo(params) {
+  return request('/api/PersonnelInformation/UpdateBasicInfo', {
     method: 'POST',
     body: params,
   });
