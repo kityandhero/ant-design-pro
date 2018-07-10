@@ -28,17 +28,28 @@ const { MonthPicker } = DatePicker;
 
 @connect(({ familyinformation, loading }) => ({
   familyinformation,
-  // loading: loading.models.familyinformation,
-  loadingBasicInfo: loading.models.familyinformation,
-  loadingProductionAndLife: loading.models.familyinformation,
+  loading: loading.models.familyinformation,
 }))
 @Form.create()
 export default class BasicInfo extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      savingBasicInfo: false,
+      savingProductionAndLife: false,
+    };
+  }
+
   componentDidMount() {
+    this.setState({ savingBasicInfo: true });
+    this.setState({ savingProductionAndLife: true });
     const { dispatch } = this.props;
     dispatch({
       type: 'familyinformation/fetch',
       payload: params,
+    }).then(() => {
+      this.setState({ savingBasicInfo: false });
+      this.setState({ savingProductionAndLife: false });
     });
   }
 
@@ -47,6 +58,7 @@ export default class BasicInfo extends PureComponent {
     const { dispatch, form } = this.props;
     form.validateFields((err, values) => {
       if (!err) {
+        this.setState({ savingBasicInfo: true });
         const submitValue = values;
         submitValue.familyId = params.familyId;
         submitValue.expectedShakeOffPovertyTime = values.expectedShakeOffPovertyTime.format(
@@ -55,6 +67,8 @@ export default class BasicInfo extends PureComponent {
         dispatch({
           type: 'familyinformation/savebasicinfo',
           payload: submitValue,
+        }).then(() => {
+          this.setState({ savingBasicInfo: false });
         });
       }
     });
@@ -65,11 +79,14 @@ export default class BasicInfo extends PureComponent {
     const { dispatch, form } = this.props;
     form.validateFields((err, values) => {
       if (!err) {
+        this.setState({ savingProductionAndLife: true });
         const submitValue = values;
         submitValue.familyId = params.familyId;
         dispatch({
           type: 'familyinformation/saveproductionandlife',
           payload: submitValue,
+        }).then(() => {
+          this.setState({ savingProductionAndLife: false });
         });
       }
     });
@@ -82,10 +99,10 @@ export default class BasicInfo extends PureComponent {
       // routerData,
       familyinformation: { data },
       // loading,
-      loadingBasicInfo,
-      loadingProductionAndLife,
     } = this.props;
     const { getFieldDecorator } = form;
+    const { savingBasicInfo } = this.state;
+    const { savingProductionAndLife } = this.state;
     return (
       <Fragment>
         <Card
@@ -98,7 +115,7 @@ export default class BasicInfo extends PureComponent {
             </Button>
           }
         >
-          <Spin spinning={loadingBasicInfo}>
+          <Spin spinning={savingBasicInfo}>
             <Form className="ant-advanced-search-form">
               <Row gutter={24}>
                 <Col span={8}>
@@ -248,7 +265,7 @@ export default class BasicInfo extends PureComponent {
             </Button>
           }
         >
-          <Spin spinning={loadingProductionAndLife}>
+          <Spin spinning={savingProductionAndLife}>
             <Form className="ant-advanced-search-form">
               <Row gutter={24}>
                 <Col span={8}>

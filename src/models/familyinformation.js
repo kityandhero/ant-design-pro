@@ -25,7 +25,6 @@ export default {
     *savebasicinfo({ payload }, { call }) {
       yield call(querySaveBasicInfo, payload);
       // const response = yield call(querySaveBasicInfo, payload);
-      // console.dir(1);
       // yield put({
       //   type: 'savebasicinfosuccess',
       //   payload: response,
