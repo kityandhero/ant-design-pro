@@ -80,7 +80,9 @@ export class MemberItem extends PureComponent {
     // console.dir(getFieldDecorator);
     return (
       <Card
-        title={memberData.relationshipWithHouseholderNote}
+        title={`[${memberData.relationshipWithHouseholderNote}] ${memberData.name} ${
+          memberData.age
+        }岁 ${memberData.healthNote}`}
         style={{ marginBottom: 24 }}
         bordered={false}
         extra={
