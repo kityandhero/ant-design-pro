@@ -13,3 +13,10 @@ export async function queryYearStatistic(params) {
     body: params,
   });
 }
+
+export async function queryQuarterStatistic(params) {
+  return request('/api/IncomeExpenditureQuarterStatistic/Get', {
+    method: 'POST',
+    body: params,
+  });
+}

@@ -2,7 +2,7 @@ import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
 import { Card, Form, Spin } from 'antd';
 import { IncomeExpenditureYearStatisticInfo } from './IncomeExpenditureYearStatisticInfo';
-// import { IncomeExpenditureQuarterStatisticInfo } from './IncomeExpenditureQuarterStatisticInfo';
+import { IncomeExpenditureQuarterStatisticInfo } from './IncomeExpenditureQuarterStatisticInfo';
 import { getPageQuery } from '../../../utils/utils';
 
 @connect(({ incomeexpenditure, loading }) => ({
@@ -62,12 +62,14 @@ export default class IncomeExpenditureInfo extends PureComponent {
         );
       } else {
         if (item.type === 1) {
-          // return (
-          //   <Card>
-          //     <IncomeExpenditureQuarterStatisticInfo>
-          //     </IncomeExpenditureQuarterStatisticInfo>
-          //   </Card>
-          // );
+          com.push(
+            <IncomeExpenditureQuarterStatisticInfo
+              key={item.key}
+              familyId={familyId}
+              year={item.year}
+              quarter={item.quarter}
+            />
+          );
         }
         if (item.type === 0) {
           com.push(

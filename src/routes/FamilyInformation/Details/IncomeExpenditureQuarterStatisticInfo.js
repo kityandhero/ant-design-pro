@@ -16,18 +16,20 @@ export class IncomeExpenditureQuarterStatisticInfo extends PureComponent {
       dataLoading: true,
       familyId: 0,
       year: 0,
+      quarter: 0,
       data: {},
     };
   }
 
   componentDidMount() {
-    const { year, familyId } = this.props;
+    const { year, familyId, quarter } = this.props;
     this.setState({ familyId });
     this.setState({ year });
+    this.setState({ quarter });
     const { dispatch } = this.props;
     dispatch({
-      type: 'incomeexpenditure/getyearstatistic',
-      payload: { familyId, year },
+      type: 'incomeexpenditure/getquarterstatistic',
+      payload: { familyId, year, quarter },
     }).then(() => {
       this.setState({ dataLoading: false });
       const {
@@ -38,10 +40,10 @@ export class IncomeExpenditureQuarterStatisticInfo extends PureComponent {
   }
 
   render() {
-    const { dataLoading, year, data, familyId } = this.state;
+    const { dataLoading, year, quarter, data, familyId } = this.state;
     return (
       <Card
-        title={`${year}年度收入情况（全年）${familyId}`}
+        title={`${year}年${quarter}季度收入情况${familyId}`}
         style={{ marginBottom: 24 }}
         bordered={false}
         extra={

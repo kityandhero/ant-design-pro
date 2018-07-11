@@ -1,5 +1,9 @@
 // import { message } from 'antd';
-import { queryStatisticExist, queryYearStatistic } from '../services/incomeexpenditure';
+import {
+  queryStatisticExist,
+  queryYearStatistic,
+  queryQuarterStatistic,
+} from '../services/incomeexpenditure';
 
 export default {
   namespace: 'incomeexpenditure',
@@ -27,6 +31,13 @@ export default {
       const response = yield call(queryYearStatistic, payload);
       yield put({
         type: 'handleyearstatistic',
+        payload: response,
+      });
+    },
+    *getquarterstatistic({ payload }, { call, put }) {
+      const response = yield call(queryQuarterStatistic, payload);
+      yield put({
+        type: 'handlequarterstatistic',
         payload: response,
       });
     },
@@ -61,6 +72,20 @@ export default {
       return {
         ...state,
         data: d.incomeExpenditureYearStatistic,
+      };
+    },
+    handlequarterstatistic(state, action) {
+      let d = action.payload;
+      if (d === undefined) {
+        d = {
+          incomeExpenditureQuarterStatistic: {},
+        };
+      } else {
+        d.incomeExpenditureQuarterStatistic = d.data.incomeExpenditureQuarterStatistic;
+      }
+      return {
+        ...state,
+        data: d.incomeExpenditureQuarterStatistic,
       };
     },
   },

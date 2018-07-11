@@ -94,6 +94,7 @@ export const getRouterData = app => {
       ),
     },
     '/familyinformation/details': {
+      name: '家庭信息',
       component: dynamicWrapper(app, ['familyinformation'], () =>
         import('../routes/FamilyInformation/Details')
       ),
