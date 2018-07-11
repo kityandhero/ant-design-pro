@@ -111,8 +111,8 @@ export const getRouterData = app => {
       ),
     },
     '/familyinformation/details/incomeexpenditureinfo': {
-      name: '家庭成员',
-      component: dynamicWrapper(app, ['familyinformation'], () =>
+      name: '收支状况',
+      component: dynamicWrapper(app, ['incomeexpenditure'], () =>
         import('../routes/FamilyInformation/Details/IncomeExpenditureInfo')
       ),
     },

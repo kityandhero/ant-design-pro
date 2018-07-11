@@ -19,7 +19,7 @@ export default {
     *fetch({ payload }, { call, put }) {
       const response = yield call(queryBasicInfo, payload);
       yield put({
-        type: 'save',
+        type: 'getData',
         payload: response,
       });
     },
@@ -53,7 +53,7 @@ export default {
   },
 
   reducers: {
-    save(state, action) {
+    getData(state, action) {
       let d = action.payload;
 
       if (d === undefined) {
