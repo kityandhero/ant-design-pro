@@ -2,10 +2,7 @@ import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
 import { Form } from 'antd';
 import { MemberItem } from './MemberItem';
-
-const params = {
-  familyId: 1000,
-};
+import { getPageQuery } from '../../../utils/utils';
 
 @connect(({ familyinformation, loading }) => ({
   familyinformation,
@@ -16,15 +13,19 @@ export default class BasicInfo extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
+      familyId: 0,
       dataLoading: true,
     };
   }
 
   componentDidMount() {
+    var queryData = getPageQuery();
+    let familyId = queryData.familyId || 0;
+    this.setState({ familyId });
     const { dispatch } = this.props;
     dispatch({
       type: 'familyinformation/fetch',
-      payload: params,
+      payload: { familyId },
     }).then(() => {
       this.setState({ dataLoading: false });
     });

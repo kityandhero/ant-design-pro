@@ -4,12 +4,8 @@ import { Route, routerRedux, Switch } from 'dva/router';
 import { Button, Row, Col } from 'antd';
 import DescriptionList from '../../../components/DescriptionList';
 import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
-import { getRoutes } from '../../../utils/utils';
+import { getRoutes, getPageQuery } from '../../../utils/utils';
 import styles from './style.less';
-
-const params = {
-  familyId: 1000,
-};
 
 const { Description } = DescriptionList;
 const ButtonGroup = Button.Group;
@@ -33,7 +29,7 @@ const tabList = [
     tab: '家庭成员',
   },
   {
-    key: 'incomeexpenditureyearstatistic',
+    key: 'incomeexpenditureinfo',
     tab: '收支状况',
   },
   {
@@ -55,44 +51,69 @@ const tabList = [
   loading: loading.models.familyinformation,
 }))
 export default class Details extends PureComponent {
-  // state = {
-  //   expandForm: false,
-  //   selectedRows: [],
-  //   formValues: {},
-  // };
+  constructor(props) {
+    super(props);
+    this.state = {
+      familyId: 0,
+    };
+  }
 
   componentDidMount() {
+    var queryData = getPageQuery();
+    let familyId = queryData.familyId || 0;
+    this.setState({ familyId });
     const { dispatch } = this.props;
     dispatch({
       type: 'familyinformation/fetch',
-      payload: params,
+      payload: { familyId },
     });
   }
 
   handleTabChange = key => {
     const { dispatch, match } = this.props;
+    const { familyId } = this.state;
+    let location;
     switch (key) {
       case 'basicinfo':
-        dispatch(routerRedux.push(`${match.url}/basicinfo`));
+        location = {
+          pathname: `${match.url}/basicinfo`,
+          search: `?familyId=${familyId}`,
+        };
         break;
       case 'memberinfo':
-        dispatch(routerRedux.push(`${match.url}/memberinfo`));
+        location = {
+          pathname: `${match.url}/memberinfo`,
+          search: `?familyId=${familyId}`,
+        };
         break;
-      case 'incomeexpenditureyearstatistic':
-        dispatch(routerRedux.push(`${match.url}/incomeexpenditureyearstatistic`));
+      case 'incomeexpenditureinfo':
+        location = {
+          pathname: `${match.url}/incomeexpenditureinfo`,
+          search: `?familyId=${familyId}`,
+        };
         break;
       case 'familyinformationproperty':
-        dispatch(routerRedux.push(`${match.url}/familyinformationproperty`));
+        location = {
+          pathname: `${match.url}/familyinformationproperty`,
+          search: `?familyId=${familyId}`,
+        };
         break;
       case 'helpmeasuresandresult':
-        dispatch(routerRedux.push(`${match.url}/helpmeasuresandresult`));
+        location = {
+          pathname: `${match.url}/helpmeasuresandresult`,
+          search: `?familyId=${familyId}`,
+        };
         break;
       case 'informationchangelog':
-        dispatch(routerRedux.push(`${match.url}/informationchangelog`));
+        location = {
+          pathname: `${match.url}/informationchangelog`,
+          search: `?familyId=${familyId}`,
+        };
         break;
       default:
         break;
     }
+    dispatch(routerRedux.push(location));
   };
 
   render() {
@@ -110,7 +131,9 @@ export default class Details extends PureComponent {
           <img alt="" src="https://gw.alipayobjects.com/zos/rmsportal/nxkuOJlFJuAUhzlMTCEe.png" />
         }
         action={action}
-        tabActiveKey={location.hash.replace(`#${match.path}/`, '')}
+        tabActiveKey={location.hash
+          .substring(0, location.hash.lastIndexOf('?'))
+          .replace(`#${match.path}/`, '')}
         content={
           <DescriptionList className={styles.headerList} size="small" col="2">
             <Description term="户籍">{data.address}</Description>

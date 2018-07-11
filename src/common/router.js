@@ -110,6 +110,12 @@ export const getRouterData = app => {
         import('../routes/FamilyInformation/Details/MemberInfo')
       ),
     },
+    '/familyinformation/details/incomeexpenditureinfo': {
+      name: '家庭成员',
+      component: dynamicWrapper(app, ['familyinformation'], () =>
+        import('../routes/FamilyInformation/Details/IncomeExpenditureInfo')
+      ),
+    },
     '/form/basic-form': {
       component: dynamicWrapper(app, ['form'], () => import('../routes/Forms/BasicForm')),
     },

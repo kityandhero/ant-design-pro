@@ -1,6 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import moment from 'moment';
 import { connect } from 'dva';
+import { getPageQuery } from '../../../utils/utils';
 // import styles from './BasicInfo.less';
 import {
   Card,
@@ -16,12 +17,6 @@ import {
   // Divider,
   Select,
 } from 'antd';
-// import DescriptionList from '../../../components/DescriptionList';
-
-const params = {
-  familyId: 1000,
-};
-// const { Description } = DescriptionList;
 
 const FormItem = Form.Item;
 const { MonthPicker } = DatePicker;
@@ -35,18 +30,22 @@ export default class BasicInfo extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
+      familyId: 0,
       savingBasicInfo: false,
       savingProductionAndLife: false,
     };
   }
 
   componentDidMount() {
+    var queryData = getPageQuery();
+    let familyId = queryData.familyId || 0;
+    this.setState({ familyId });
     this.setState({ savingBasicInfo: true });
     this.setState({ savingProductionAndLife: true });
     const { dispatch } = this.props;
     dispatch({
       type: 'familyinformation/fetch',
-      payload: params,
+      payload: { familyId },
     }).then(() => {
       this.setState({ savingBasicInfo: false });
       this.setState({ savingProductionAndLife: false });
@@ -56,11 +55,12 @@ export default class BasicInfo extends PureComponent {
   handleSaveBasicInfo = e => {
     e.preventDefault();
     const { dispatch, form } = this.props;
+    const { familyId } = this.state;
     form.validateFields((err, values) => {
       if (!err) {
         this.setState({ savingBasicInfo: true });
         const submitValue = values;
-        submitValue.familyId = params.familyId;
+        submitValue.familyId = familyId;
         submitValue.expectedShakeOffPovertyTime = values.expectedShakeOffPovertyTime.format(
           'YYYY-MM'
         );

@@ -124,9 +124,20 @@ export default class BasicList extends PureComponent {
   };
 
   // handleEditClick = e => {
-  handleEditClick = () => {
+  handleEditClick = record => {
+    // console.dir(record);
     const { dispatch } = this.props;
-    dispatch(routerRedux.push('/familyinformation/details/basicinfo'));
+    const { familyId } = record;
+    // const paramData = {
+    //   familyId: familyId,
+    // }
+    // let paramDataString = JSON.stringify(paramData)
+    // dispatch(routerRedux.push(`/familyinformation/details/basicinfo?data=${paramDataString})`));
+    const location = {
+      pathname: '/familyinformation/details/basicinfo',
+      search: `?familyId=${familyId}`,
+    };
+    dispatch(routerRedux.push(location));
   };
 
   handleSelectRows = rows => {
@@ -379,9 +390,9 @@ export default class BasicList extends PureComponent {
         width: 78,
         align: 'center',
         fixed: 'right',
-        render: () => (
+        render: (text, record, index) => (
           <Fragment>
-            <a onClick={this.handleEditClick}>
+            <a onClick={() => this.handleEditClick(record)}>
               <Icon type="edit" className={styles.editButton} />编辑
             </a>
           </Fragment>
