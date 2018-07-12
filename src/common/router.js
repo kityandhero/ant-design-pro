@@ -117,6 +117,11 @@ export const getRouterData = app => {
         import('../routes/FamilyInformation/Details/IncomeExpenditureInfo')
       ),
     },
+    '/incomeexpenditureprice/:type/:category': {
+      component: dynamicWrapper(app, ['incomeexpenditureprice'], () =>
+        import('../routes/IncomeExpenditurePrice/Standard')
+      ),
+    },
     '/form/basic-form': {
       component: dynamicWrapper(app, ['form'], () => import('../routes/Forms/BasicForm')),
     },

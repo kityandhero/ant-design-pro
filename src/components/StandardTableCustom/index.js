@@ -26,7 +26,7 @@ class StandardTableCustom extends PureComponent {
 
   componentWillReceiveProps(nextProps) {
     // clean state
-    if (nextProps.selectedRows.length === 0) {
+    if ((nextProps.selectedRows || []).length === 0) {
       const needTotalList = initTotalList(nextProps.columns);
       this.setState({
         selectedRowKeys: [],
@@ -68,6 +68,7 @@ class StandardTableCustom extends PureComponent {
     const { selectedRowKeys, needTotalList } = this.state;
     const {
       data: { list, pagination },
+      expandedRowRender,
       scroll,
       loading,
       columns,
@@ -80,16 +81,22 @@ class StandardTableCustom extends PureComponent {
       ...pagination,
     };
 
-    const rowSelection = {
-      selectedRowKeys,
-      onChange: this.handleRowSelectChange,
-      getCheckboxProps: record => ({
-        disabled: record.disabled,
-      }),
-    };
+    const { selectedRows } = this.props;
 
-    return (
-      <div className={styles.standardTableCustom}>
+    const rowSelection =
+      (selectedRows || []).length === 0
+        ? null
+        : {
+            selectedRowKeys,
+            onChange: this.handleRowSelectChange,
+            getCheckboxProps: record => ({
+              disabled: record.disabled,
+            }),
+          };
+    const rowSelectionMessage =
+      rowSelection === null ? (
+        ''
+      ) : (
         <div className={styles.tableAlert}>
           <Alert
             message={
@@ -113,12 +120,17 @@ class StandardTableCustom extends PureComponent {
             showIcon
           />
         </div>
+      );
+    return (
+      <div className={styles.standardTableCustom}>
+        {rowSelectionMessage}
         <Table
           loading={loading}
           scroll={scroll}
           rowKey={rowKey || 'key'}
           rowSelection={rowSelection}
           dataSource={list}
+          expandedRowRender={expandedRowRender}
           columns={columns}
           pagination={paginationProps}
           onChange={this.handleTableChange}

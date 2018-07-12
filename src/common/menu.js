@@ -34,6 +34,43 @@ const menuData = [
     ],
   },
   {
+    name: '参考标准',
+    icon: 'form',
+    path: 'incomeexpenditureprice',
+    children: [
+      // {
+      //   name: '生产经营性收支',
+      //   path: ':type',
+      // },
+      {
+        name: '生产经营性收支',
+        path: '0',
+        children: [
+          {
+            name: '种植业收入',
+            path: '2001',
+          },
+          {
+            name: '养殖业收入',
+            path: '2002',
+          },
+        ],
+      },
+      // {
+      //   name: '各项补贴标准',
+      //   path: 'standard/:type',
+      // },
+      // {
+      //   name: '劳务收入标准',
+      //   path: 'standard/:type',
+      // },
+      // {
+      //   name: '刚性支出标准',
+      //   path: 'standard/:type',
+      // },
+    ],
+  },
+  {
     name: '表单页',
     icon: 'form',
     path: 'form',
