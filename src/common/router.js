@@ -122,6 +122,11 @@ export const getRouterData = app => {
         import('../routes/IncomeExpenditurePrice/Standard')
       ),
     },
+    '/povertyalleviationagency/list': {
+      component: dynamicWrapper(app, ['povertyalleviationagency'], () =>
+        import('../routes/PovertyAlleviationAgency/List')
+      ),
+    },
     '/form/basic-form': {
       component: dynamicWrapper(app, ['form'], () => import('../routes/Forms/BasicForm')),
     },

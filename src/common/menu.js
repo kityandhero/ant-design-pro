@@ -71,6 +71,17 @@ const menuData = [
     ],
   },
   {
+    name: '下属机构管理',
+    icon: 'form',
+    path: 'povertyalleviationagency',
+    children: [
+      {
+        name: '下属部门',
+        path: 'list',
+      },
+    ],
+  },
+  {
     name: '表单页',
     icon: 'form',
     path: 'form',
