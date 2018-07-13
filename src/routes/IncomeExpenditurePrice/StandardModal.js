@@ -51,10 +51,13 @@ export default class StandardModal extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { visiblePre } = this.state;
+    const {
+      visible: { visiblePre },
+    } = this.state;
     const { form, visible, mode, metaData } = nextProps;
     this.setState({ mode });
     this.setState({ metaData: metaData || {} });
+
     if (mode === 'add') {
       if (visiblePre === false && visible === true) {
         form.resetFields();
@@ -62,7 +65,7 @@ export default class StandardModal extends PureComponent {
     }
     if (mode === 'update') {
       if (visiblePre === false && visible === true) {
-        form.resetFields(metaData);
+        form.resetFields();
       }
     }
     this.setState({ visible });

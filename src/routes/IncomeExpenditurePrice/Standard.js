@@ -1,6 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
-import { routerRedux } from 'dva/router';
+// import { routerRedux } from 'dva/router';
 import moment from 'moment';
 import {
   Row,
@@ -29,13 +29,32 @@ import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import styles from './Standard.less';
 
 const FormItem = Form.Item;
-const { Option } = Select;
+// const { Option } = Select;
 const getValue = obj =>
   Object.keys(obj)
     .map(key => obj[key])
     .join(',');
-const statusMap = ['default', 'processing', 'success', 'error'];
-const status = ['关闭', '运行中', '已上线', '异常'];
+
+const status = [
+  {
+    key: -10000,
+    badge: 'default',
+    text: '不限',
+    value: -10000,
+  },
+  {
+    key: 2,
+    badge: 'success',
+    text: '正常',
+    value: 2,
+  },
+  {
+    key: -2,
+    badge: 'error',
+    text: '已禁用',
+    value: -2,
+  },
+];
 
 @connect(({ incomeexpenditureprice, loading }) => ({
   incomeexpenditureprice,
@@ -50,6 +69,8 @@ export default class Standard extends PureComponent {
     // dataLoading: true,
     mounted: false,
     addnewvisible: false,
+    updateitemvisible: false,
+    metaData: {},
     customData: {
       count: 0,
       list: [],
@@ -110,7 +131,7 @@ export default class Standard extends PureComponent {
 
   handleStandardTableChange = (pagination, filtersArg, sorter) => {
     const { dispatch } = this.props;
-    const { formValues } = this.state;
+    const { formValues, type, category } = this.state;
     // console.dir(pagination);
     const filters = Object.keys(filtersArg).reduce((obj, key) => {
       const newObj = { ...obj };
@@ -123,6 +144,8 @@ export default class Standard extends PureComponent {
       pageSize: pagination.pageSize,
       ...formValues,
       ...filters,
+      type,
+      category,
     };
     if (sorter.field) {
       params.sorter = `${sorter.field}_${sorter.order}`;
@@ -131,36 +154,38 @@ export default class Standard extends PureComponent {
     dispatch({
       type: 'incomeexpenditureprice/fetch',
       payload: params,
+    }).then(() => {
+      const {
+        incomeexpenditureprice: { data },
+      } = this.props;
+      this.setState({ customData: data });
     });
   };
 
   handleFormReset = () => {
     const { form, dispatch } = this.props;
+    const { type, category } = this.state;
     form.resetFields();
     this.setState({
       formValues: {},
     });
     dispatch({
       type: 'incomeexpenditureprice/fetch',
-      payload: {},
+      payload: {
+        type,
+        category,
+      },
+    }).then(() => {
+      const {
+        incomeexpenditureprice: { data },
+      } = this.props;
+      this.setState({ customData: data });
     });
   };
 
-  // handleEditClick = e => {
   handleEditClick = record => {
-    // console.dir(record);
-    const { dispatch } = this.props;
-    const { familyId } = record;
-    // const paramData = {
-    //   familyId: familyId,
-    // }
-    // let paramDataString = JSON.stringify(paramData)
-    // dispatch(routerRedux.push(`/familyinformation/details/basicinfo?data=${paramDataString})`));
-    const location = {
-      pathname: '/familyinformation/details/basicinfo',
-      search: `?familyId=${familyId}`,
-    };
-    dispatch(routerRedux.push(location));
+    this.setState({ metaData: record });
+    this.setState({ updateitemvisible: true });
   };
 
   refreshGrid = pageNo => {
@@ -189,6 +214,7 @@ export default class Standard extends PureComponent {
     e.preventDefault();
 
     const { dispatch, form } = this.props;
+    const { type, category } = this.state;
 
     form.validateFields((err, fieldsValue) => {
       if (err) return;
@@ -204,7 +230,16 @@ export default class Standard extends PureComponent {
 
       dispatch({
         type: 'incomeexpenditureprice/fetch',
-        payload: values,
+        payload: {
+          ...values,
+          type,
+          category,
+        },
+      }).then(() => {
+        const {
+          incomeexpenditureprice: { data },
+        } = this.props;
+        this.setState({ customData: data });
       });
     });
   };
@@ -228,11 +263,36 @@ export default class Standard extends PureComponent {
     });
   };
 
+  afterUpdateItemModalOk = () => {
+    this.setState({
+      updateitemvisible: false,
+    });
+    const { customData } = this.state;
+    const { pagination } = customData;
+    const { current } = pagination;
+    this.refreshGrid(current);
+  };
+
+  afterUpdateItemModalCanel = () => {
+    this.setState({
+      updateitemvisible: false,
+    });
+  };
+
   renderSimpleForm() {
     const { form, dispatch } = this.props;
     const { addnewvisible } = this.state;
     const { getFieldDecorator } = form;
     const { category } = this.state;
+    const statusOption = [];
+    status.forEach(item => {
+      const { text, value } = item;
+      statusOption.push(
+        <Select.Option key={value} value={value}>
+          {text}
+        </Select.Option>
+      );
+    });
     return (
       <Form onSubmit={this.handleSearch} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }} justify="end">
@@ -243,10 +303,12 @@ export default class Standard extends PureComponent {
           </Col>
           <Col md={6} sm={24}>
             <FormItem label="使用状态">
-              {getFieldDecorator('status')(
+              {getFieldDecorator('status', {
+                rules: [{ required: false, message: '请选择使用状态!' }],
+                initialValue: status[0].value,
+              })(
                 <Select placeholder="请选择" style={{ width: '100%' }}>
-                  <Option value="0">关闭</Option>
-                  <Option value="1">运行中</Option>
+                  {statusOption}
                 </Select>
               )}
             </FormItem>
@@ -283,8 +345,8 @@ export default class Standard extends PureComponent {
   }
 
   render() {
-    const { loading } = this.props;
-    const { customData } = this.state;
+    const { loading, dispatch } = this.props;
+    const { customData, metaData, updateitemvisible, category } = this.state;
     const scroll = {
       x: 1000,
     };
@@ -304,7 +366,7 @@ export default class Standard extends PureComponent {
         fixed: 'left',
         render: (text, record) => (
           <Fragment>
-            <Tooltip placement="right" title={record.description}>
+            <Tooltip placement="right" title={`${record.name} ${record.description}`}>
               {text}
             </Tooltip>
           </Fragment>
@@ -314,6 +376,13 @@ export default class Standard extends PureComponent {
         title: '类型',
         dataIndex: 'categoryName',
         align: 'center',
+        render: (text, record) => (
+          <Fragment>
+            <Tooltip placement="right" title={record.text}>
+              {text}
+            </Tooltip>
+          </Fragment>
+        ),
       },
       {
         title: '单位',
@@ -346,27 +415,18 @@ export default class Standard extends PureComponent {
         title: '状态',
         dataIndex: 'status',
         align: 'center',
-        filters: [
-          {
-            text: status[0],
-            value: 0,
-          },
-          {
-            text: status[1],
-            value: 1,
-          },
-          {
-            text: status[2],
-            value: 2,
-          },
-          {
-            text: status[3],
-            value: 3,
-          },
-        ],
+        filters: status,
+        filterMultiple: false,
         onFilter: (value, record) => record.status.toString() === value,
-        render(val) {
-          return <Badge status={statusMap[val]} text={status[val]} />;
+        render(val, record) {
+          let badgeValue = '';
+          status.forEach(item => {
+            const { badge, value } = item;
+            if (value === val) {
+              badgeValue = badge;
+            }
+          });
+          return <Badge status={badgeValue} text={record.statusNote} />;
         },
       },
       {
@@ -401,6 +461,15 @@ export default class Standard extends PureComponent {
             />
           </div>
         </Card>
+        <StandardModal
+          visible={updateitemvisible}
+          mode="update"
+          metaData={metaData}
+          category={category}
+          dispatch={dispatch}
+          afterOK={this.afterUpdateItemModalOk}
+          afterCancel={this.afterUpdateItemModalCanel}
+        />
       </PageHeaderLayout>
     );
   }
