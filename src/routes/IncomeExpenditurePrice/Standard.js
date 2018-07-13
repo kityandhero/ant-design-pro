@@ -13,16 +13,17 @@ import {
   Button,
   // Dropdown,
   // Menu,
-  InputNumber,
+  // InputNumber,
   // DatePicker,
   Tooltip,
-  Modal,
+  // Modal,
   // Modal,
   // message,
   Badge,
   Divider,
 } from 'antd';
 import StandardTableCustom from 'components/StandardTableCustom';
+import StandardModal from './StandardModal';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 
 import styles from './Standard.less';
@@ -162,6 +163,28 @@ export default class Standard extends PureComponent {
     dispatch(routerRedux.push(location));
   };
 
+  refreshGrid = pageNo => {
+    const { dispatch } = this.props;
+    const { customData, type, category } = this.state;
+    const { pagination } = customData;
+
+    const params = {
+      pageNo: (pageNo || 1) <= 1 ? 1 : pageNo,
+      pageSize: pagination.pageSize,
+      type,
+      category,
+    };
+    dispatch({
+      type: 'incomeexpenditureprice/fetch',
+      payload: params,
+    }).then(() => {
+      const {
+        incomeexpenditureprice: { data },
+      } = this.props;
+      this.setState({ customData: data });
+    });
+  };
+
   handleSearch = e => {
     e.preventDefault();
 
@@ -192,34 +215,24 @@ export default class Standard extends PureComponent {
     });
   };
 
-  handleOk = () => {
-    // console.log(e);
+  afterAddNewModalOk = () => {
     this.setState({
       addnewvisible: false,
     });
+    this.refreshGrid();
   };
 
-  handleCancel = () => {
-    // console.log(e);
+  afterAddNewModalCanel = () => {
     this.setState({
       addnewvisible: false,
     });
   };
 
   renderSimpleForm() {
-    const { form } = this.props;
+    const { form, dispatch } = this.props;
     const { addnewvisible } = this.state;
     const { getFieldDecorator } = form;
-    const formItemLayout = {
-      labelCol: {
-        xs: { span: 24 },
-        sm: { span: 5 },
-      },
-      wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 12 },
-      },
-    };
+    const { category } = this.state;
     return (
       <Form onSubmit={this.handleSearch} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }} justify="end">
@@ -248,47 +261,16 @@ export default class Standard extends PureComponent {
               </Button>
               <Divider type="vertical" />
               <Button type="primary" onClick={this.showAddNewModal}>
-                新增参考标准
+                新增标准
               </Button>
-              <Modal
-                title="Basic Modal"
+              <StandardModal
                 visible={addnewvisible}
-                onOk={this.handleOk}
-                onCancel={this.handleCancel}
-              >
-                <Form>
-                  <FormItem
-                    {...formItemLayout}
-                    label="标准名称"
-                    validateStatus="error"
-                    help="Should be combination of numbers & alphabets"
-                  >
-                    <Input placeholder="unavailable choice" id="error" />
-                  </FormItem>
-
-                  <FormItem {...formItemLayout} label="计量单位" validateStatus="warning">
-                    <Input placeholder="Warning" id="warning" />
-                  </FormItem>
-
-                  <FormItem
-                    {...formItemLayout}
-                    label="最高价"
-                    hasFeedback
-                    validateStatus="validating"
-                    help="The information is being validated..."
-                  >
-                    <InputNumber placeholder="I'm the content is being validated" id="validating" />
-                  </FormItem>
-
-                  <FormItem {...formItemLayout} label="最低价" hasFeedback validateStatus="success">
-                    <InputNumber placeholder="I'm the content" id="success" />
-                  </FormItem>
-
-                  <FormItem {...formItemLayout} label="平均价" hasFeedback validateStatus="warning">
-                    <InputNumber placeholder="Warning" id="warning" />
-                  </FormItem>
-                </Form>
-              </Modal>
+                mode="add"
+                category={category}
+                dispatch={dispatch}
+                afterOK={this.afterAddNewModalOk}
+                afterCancel={this.afterAddNewModalCanel}
+              />
             </span>
           </Col>
         </Row>
@@ -322,10 +304,9 @@ export default class Standard extends PureComponent {
         fixed: 'left',
         render: (text, record) => (
           <Fragment>
-            <Tooltip placement="right" title={record.name}>
+            <Tooltip placement="right" title={record.description}>
               {text}
             </Tooltip>
-            {/* <span title={`${record.description}`}>{text}</span> */}
           </Fragment>
         ),
       },
