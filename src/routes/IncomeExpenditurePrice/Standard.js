@@ -364,10 +364,10 @@ export default class Standard extends PureComponent {
         width: 120,
         align: 'center',
         fixed: 'left',
-        render: (text, record) => (
+        render: (val, record) => (
           <Fragment>
             <Tooltip placement="right" title={`${record.name} ${record.description}`}>
-              {text}
+              <span className="oneLineText">{val}</span>
             </Tooltip>
           </Fragment>
         ),
@@ -376,10 +376,10 @@ export default class Standard extends PureComponent {
         title: '类型',
         dataIndex: 'categoryName',
         align: 'center',
-        render: (text, record) => (
+        render: val => (
           <Fragment>
-            <Tooltip placement="right" title={record.text}>
-              {text}
+            <Tooltip placement="right" title={val}>
+              <span className="oneLineText">{val}</span>
             </Tooltip>
           </Fragment>
         ),
@@ -388,28 +388,62 @@ export default class Standard extends PureComponent {
         title: '单位',
         dataIndex: 'unitName',
         align: 'center',
+        render: val => (
+          <Fragment>
+            <Tooltip placement="right" title={val}>
+              <span className="oneLineText">{val}</span>
+            </Tooltip>
+          </Fragment>
+        ),
       },
       {
         title: '最高价',
         dataIndex: 'max',
         align: 'center',
+        render: val => (
+          <Fragment>
+            <Tooltip placement="right" title={val}>
+              <span className="oneLineText">{val}</span>
+            </Tooltip>
+          </Fragment>
+        ),
       },
       {
         title: '最低价',
         dataIndex: 'min',
         align: 'center',
+        render: val => (
+          <Fragment>
+            <Tooltip placement="right" title={val}>
+              <span className="oneLineText">{val}</span>
+            </Tooltip>
+          </Fragment>
+        ),
       },
       {
         title: '均价',
         dataIndex: 'average',
         align: 'center',
+        render: val => (
+          <Fragment>
+            <Tooltip placement="right" title={val}>
+              <span className="oneLineText">{val}</span>
+            </Tooltip>
+          </Fragment>
+        ),
       },
       {
         title: '创建时间',
         dataIndex: 'createTime',
         align: 'center',
         sorter: false,
-        render: val => <span>{moment(val).format('YYYY-MM-DD HH:mm:ss')}</span>,
+        render: val => (
+          <Fragment>
+            <Tooltip placement="right" title={moment(val).format('YYYY-MM-DD HH:mm:ss')}>
+              <span className="oneLineText">{moment(val).format('YYYY-MM-DD HH:mm:ss')}</span>
+            </Tooltip>
+          </Fragment>
+        ),
       },
       {
         title: '状态',
