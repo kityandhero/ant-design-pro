@@ -1,7 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
-import moment from 'moment';
 import {
   Row,
   Col,
@@ -240,7 +239,7 @@ export default class List extends PureComponent {
     const { dispatch } = this.props;
     const { errorLogId } = record;
     const location = {
-      pathname: `/systemconfig/log/errorlog/details/basicinfo/${errorLogId}`,
+      pathname: `/systemconfig/log/errorlog/details/${errorLogId}/basicinfo`,
     };
     dispatch(routerRedux.push(location));
   };
@@ -302,9 +301,6 @@ export default class List extends PureComponent {
   render() {
     const { loading } = this.props;
     const { customData, pageTitle } = this.state;
-    const scroll = {
-      x: 1000,
-    };
     const columns = [
       {
         title: 'ID',
@@ -315,7 +311,7 @@ export default class List extends PureComponent {
       {
         title: '访问链接',
         dataIndex: 'url',
-        width: 320,
+        width: 280,
         align: 'center',
         render: (val, record) => (
           <Fragment>
@@ -339,14 +335,14 @@ export default class List extends PureComponent {
       },
       {
         title: '创建时间',
-        width: 170,
+        width: 150,
         dataIndex: 'createTime',
         align: 'center',
         sorter: false,
         render: val => (
           <Fragment>
-            <Tooltip placement="right" title={moment(val).format('YYYY-MM-DD HH:mm:ss')}>
-              <span className="oneLineText">{moment(val).format('YYYY-MM-DD HH:mm:ss')}</span>
+            <Tooltip placement="right" title={val}>
+              <span className="oneLineText">{val}</span>
             </Tooltip>
           </Fragment>
         ),
@@ -392,7 +388,6 @@ export default class List extends PureComponent {
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderForm()}</div>
             <StandardTableCustom
-              scroll={scroll}
               loading={loading}
               data={customData}
               columns={columns}

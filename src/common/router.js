@@ -218,12 +218,12 @@ export const getRouterData = app => {
     '/systemconfig/log/errorlog/details/:errorLogId': {
       component: dynamicWrapper(app, ['errorlog'], () => import('../routes/ErrorLog/Details')),
     },
-    '/systemconfig/log/errorlog/details/basicinfo/:errorLogId': {
+    '/systemconfig/log/errorlog/details/:errorLogId/basicinfo': {
       component: dynamicWrapper(app, ['errorlog'], () =>
         import('../routes/ErrorLog/Details/BasicInfo')
       ),
     },
-    '/systemconfig/log/errorlog/details/paraminfo/:errorLogId': {
+    '/systemconfig/log/errorlog/details/:errorLogId/paraminfo': {
       component: dynamicWrapper(app, ['errorlog'], () =>
         import('../routes/ErrorLog/Details/BasicInfo')
       ),
