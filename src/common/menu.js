@@ -24,7 +24,7 @@ const menuData = [
   },
   {
     name: '贫困户信息',
-    icon: 'form',
+    icon: 'idcard',
     path: 'personinformation',
     children: [
       {
@@ -35,7 +35,7 @@ const menuData = [
   },
   {
     name: '参考标准',
-    icon: 'form',
+    icon: 'schedule',
     path: 'incomeexpenditureprice',
     children: [
       // {
@@ -72,7 +72,7 @@ const menuData = [
   },
   {
     name: '下属机构管理',
-    icon: 'form',
+    icon: 'layout',
     path: 'povertyalleviationagency',
     children: [
       {
@@ -85,6 +85,7 @@ const menuData = [
     name: '表单页',
     icon: 'form',
     path: 'form',
+    hideInMenu: true,
     children: [
       {
         name: '基础表单',
@@ -105,6 +106,7 @@ const menuData = [
     name: '列表页',
     icon: 'table',
     path: 'list',
+    hideInMenu: true,
     children: [
       {
         name: '查询表格',
@@ -142,6 +144,7 @@ const menuData = [
     name: '详情页',
     icon: 'profile',
     path: 'profile',
+    hideInMenu: true,
     children: [
       {
         name: '基础详情页',
@@ -158,6 +161,7 @@ const menuData = [
     name: '结果页',
     icon: 'check-circle-o',
     path: 'result',
+    hideInMenu: true,
     children: [
       {
         name: '成功',
@@ -173,6 +177,7 @@ const menuData = [
     name: '异常页',
     icon: 'warning',
     path: 'exception',
+    hideInMenu: true,
     children: [
       {
         name: '403',
@@ -197,6 +202,7 @@ const menuData = [
     name: '账户',
     icon: 'user',
     path: 'user',
+    hideInMenu: true,
     authority: 'guest',
     children: [
       {
@@ -210,6 +216,79 @@ const menuData = [
       {
         name: '注册结果',
         path: 'register-result',
+      },
+    ],
+  },
+  {
+    name: '系统设置',
+    icon: 'setting',
+    path: 'systemconfig',
+    children: [
+      {
+        name: '日志管理',
+        icon: 'message',
+        path: 'log',
+        children: [
+          {
+            name: '异常日志',
+            icon: 'exception',
+            path: 'errorlog',
+          },
+          {
+            name: '操作日志',
+            icon: 'code-o',
+            path: 'operatelog',
+          },
+          {
+            name: '登陆日志',
+            icon: 'info-circle-o',
+            path: 'loginlog',
+          },
+        ],
+      },
+      {
+        name: '数据文件导入历史',
+        icon: 'profile',
+        path: 'importhistory',
+      },
+      {
+        name: '账户管理',
+        icon: 'solution',
+        path: 'account',
+        children: [
+          {
+            name: '新增账户',
+            icon: 'user-add',
+            path: 'add',
+          },
+          {
+            name: '账户列表',
+            icon: 'contacts',
+            path: 'list',
+          },
+        ],
+      },
+      {
+        name: '当前机构信息',
+        icon: 'info-circle-o',
+        path: 'currentagency',
+      },
+      {
+        name: '权限管理',
+        icon: 'wallet',
+        path: 'jurisdiction',
+        children: [
+          {
+            name: '菜单列表',
+            icon: 'bars',
+            path: 'list',
+          },
+        ],
+      },
+      {
+        name: '当前账户信息',
+        icon: 'idcard',
+        path: 'currentaccount',
       },
     ],
   },

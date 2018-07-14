@@ -22,6 +22,7 @@ import {
 } from 'antd';
 import StandardTableCustom from 'components/StandardTableCustom';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
+import { getCurrentUrlInfo } from '../../utils/tools';
 
 import styles from './BasicList.less';
 
@@ -44,10 +45,15 @@ export default class BasicList extends PureComponent {
     expandForm: false,
     selectedRows: [],
     formValues: {},
+    pageTitle: '',
   };
 
   componentDidMount() {
-    const { dispatch } = this.props;
+    const { dispatch, location, routerData } = this.props;
+    const { pathname } = location;
+    const currentUrl = getCurrentUrlInfo(routerData, pathname);
+    const { name } = currentUrl;
+    this.setState({ pageTitle: name });
     dispatch({
       type: 'personinformation/fetch',
     });
@@ -294,7 +300,7 @@ export default class BasicList extends PureComponent {
       personinformation: { data },
       loading,
     } = this.props;
-    const { selectedRows } = this.state;
+    const { selectedRows, pageTitle } = this.state;
     // console.dir(this.props);
     const scroll = {
       x: 1300,
@@ -390,10 +396,10 @@ export default class BasicList extends PureComponent {
         width: 78,
         align: 'center',
         fixed: 'right',
-        render: (text, record, index) => (
+        render: (val, record) => (
           <Fragment>
             <a onClick={() => this.handleEditClick(record)}>
-              <Icon type="edit" className={styles.editButton} />编辑
+              <Icon type="form" className={styles.editButton} />编辑
             </a>
           </Fragment>
         ),
@@ -408,7 +414,7 @@ export default class BasicList extends PureComponent {
     );
 
     return (
-      <PageHeaderLayout title="查询表格">
+      <PageHeaderLayout title={`${pageTitle}列表`}>
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderForm()}</div>
