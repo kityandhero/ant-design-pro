@@ -131,14 +131,8 @@ export default class BasicList extends PureComponent {
 
   // handleEditClick = e => {
   handleEditClick = record => {
-    // console.dir(record);
     const { dispatch } = this.props;
     const { familyId } = record;
-    // const paramData = {
-    //   familyId: familyId,
-    // }
-    // let paramDataString = JSON.stringify(paramData)
-    // dispatch(routerRedux.push(`/familyinformation/details/basicinfo?data=${paramDataString})`));
     const location = {
       pathname: '/familyinformation/details/basicinfo',
       search: `?familyId=${familyId}`,

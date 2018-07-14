@@ -1,4 +1,4 @@
-import { queryList } from '../services/errorlog';
+import { queryList, queryInfo } from '../services/errorlog';
 
 export default {
   namespace: 'errorlog',
@@ -12,16 +12,23 @@ export default {
 
   effects: {
     *fetch({ payload }, { call, put }) {
+      const response = yield call(queryInfo, payload);
+      yield put({
+        type: 'handleitem',
+        payload: response,
+      });
+    },
+    *list({ payload }, { call, put }) {
       const response = yield call(queryList, payload);
       yield put({
-        type: 'save',
+        type: 'handlelist',
         payload: response,
       });
     },
   },
 
   reducers: {
-    save(state, action) {
+    handlelist(state, action) {
       let d = action.payload;
 
       if (d === undefined) {
@@ -52,6 +59,19 @@ export default {
       return {
         ...state,
         data: d,
+      };
+    },
+    handleitem(state, action) {
+      let d = action.payload;
+
+      if (d === undefined) {
+        d = {
+          errorLog: {},
+        };
+      }
+      return {
+        ...state,
+        data: d.data.errorLog,
       };
     },
   },

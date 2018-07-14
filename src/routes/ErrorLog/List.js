@@ -1,6 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
-// import { routerRedux } from 'dva/router';
+import { routerRedux } from 'dva/router';
 import moment from 'moment';
 import {
   Row,
@@ -80,7 +80,7 @@ export default class List extends PureComponent {
     this.setState({ type });
     this.setState({ category });
     dispatch({
-      type: 'errorlog/fetch',
+      type: 'errorlog/list',
       payload: { type, category },
     }).then(() => {
       this.setState({ mounted: true });
@@ -109,7 +109,7 @@ export default class List extends PureComponent {
         this.setState({ category: nextCategory });
         const { dispatch } = nextProps;
         dispatch({
-          type: 'errorlog/fetch',
+          type: 'errorlog/list',
           payload: {
             type: nextType,
             category: nextCategory,
@@ -147,7 +147,7 @@ export default class List extends PureComponent {
     }
 
     dispatch({
-      type: 'errorlog/fetch',
+      type: 'errorlog/list',
       payload: params,
     }).then(() => {
       const {
@@ -165,7 +165,7 @@ export default class List extends PureComponent {
       formValues: {},
     });
     dispatch({
-      type: 'errorlog/fetch',
+      type: 'errorlog/list',
       payload: {
         type,
         category,
@@ -192,7 +192,7 @@ export default class List extends PureComponent {
       category,
     };
     dispatch({
-      type: 'errorlog/fetch',
+      type: 'errorlog/list',
       payload: params,
     }).then(() => {
       const {
@@ -221,7 +221,7 @@ export default class List extends PureComponent {
       });
 
       dispatch({
-        type: 'errorlog/fetch',
+        type: 'errorlog/list',
         payload: {
           ...values,
           type,
@@ -234,6 +234,15 @@ export default class List extends PureComponent {
         this.setState({ customData: data });
       });
     });
+  };
+
+  handleEditClick = record => {
+    const { dispatch } = this.props;
+    const { errorLogId } = record;
+    const location = {
+      pathname: `/systemconfig/log/errorlog/details/basicinfo/${errorLogId}`,
+    };
+    dispatch(routerRedux.push(location));
   };
 
   showAddNewModal = () => {};
@@ -250,6 +259,7 @@ export default class List extends PureComponent {
         </Select.Option>
       );
     });
+
     return (
       <Form onSubmit={this.handleSearch} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }} justify="end">

@@ -212,8 +212,21 @@ export const getRouterData = app => {
     // '/user/:id': {
     //   component: dynamicWrapper(app, [], () => import('../routes/User/SomeComponent')),
     // },
-    '/systemconfig/log/errorlog': {
+    '/systemconfig/log/errorlog/list': {
       component: dynamicWrapper(app, ['errorlog'], () => import('../routes/ErrorLog/List')),
+    },
+    '/systemconfig/log/errorlog/details/:errorLogId': {
+      component: dynamicWrapper(app, ['errorlog'], () => import('../routes/ErrorLog/Details')),
+    },
+    '/systemconfig/log/errorlog/details/basicinfo/:errorLogId': {
+      component: dynamicWrapper(app, ['errorlog'], () =>
+        import('../routes/ErrorLog/Details/BasicInfo')
+      ),
+    },
+    '/systemconfig/log/errorlog/details/paraminfo/:errorLogId': {
+      component: dynamicWrapper(app, ['errorlog'], () =>
+        import('../routes/ErrorLog/Details/BasicInfo')
+      ),
     },
   };
   // Get name from ./menu.js or just set it in the router data.

@@ -232,17 +232,17 @@ const menuData = [
           {
             name: '异常日志',
             icon: 'exception',
-            path: 'errorlog',
+            path: 'errorlog/list',
           },
           {
             name: '操作日志',
             icon: 'code-o',
-            path: 'operatelog',
+            path: 'operatelog/list',
           },
           {
             name: '登陆日志',
             icon: 'info-circle-o',
-            path: 'loginlog',
+            path: 'loginlog/list',
           },
         ],
       },
