@@ -25,6 +25,7 @@ import {
 import StandardTableCustom from 'components/StandardTableCustom';
 import StandardModal from './StandardModal';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
+import { getCurrentUrlInfo } from '../../utils/tools';
 
 import styles from './Standard.less';
 
@@ -67,6 +68,7 @@ export default class Standard extends PureComponent {
     type: 0,
     category: 2001,
     // dataLoading: true,
+    pageTitle: '',
     mounted: false,
     addnewvisible: false,
     updateitemvisible: false,
@@ -79,9 +81,13 @@ export default class Standard extends PureComponent {
   };
 
   componentDidMount() {
-    const { dispatch, match } = this.props;
+    const { dispatch, match, location, routerData } = this.props;
+    const { pathname } = location;
     const { params } = match;
     const { type, category } = params;
+    const currentUrl = getCurrentUrlInfo(routerData, pathname);
+    const { name } = currentUrl;
+    this.setState({ pageTitle: name });
     this.setState({ type });
     this.setState({ category });
     dispatch({
@@ -97,6 +103,11 @@ export default class Standard extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
+    const { location, routerData } = nextProps;
+    const { pathname } = location;
+    const currentUrl = getCurrentUrlInfo(routerData, pathname);
+    const { name } = currentUrl;
+    this.setState({ pageTitle: name });
     const { params } = nextProps.match;
     const nextType = params.type;
     const nextCategory = params.category;
@@ -346,7 +357,7 @@ export default class Standard extends PureComponent {
 
   render() {
     const { loading, dispatch } = this.props;
-    const { customData, metaData, updateitemvisible, category } = this.state;
+    const { customData, metaData, updateitemvisible, category, pageTitle } = this.state;
     const scroll = {
       x: 1000,
     };
@@ -481,7 +492,7 @@ export default class Standard extends PureComponent {
     // const { type, category } = this.props.match.params;
     // console.dir(this.props);
     return (
-      <PageHeaderLayout title="查询表格">
+      <PageHeaderLayout title={`${pageTitle}标准列表`}>
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderForm()}</div>

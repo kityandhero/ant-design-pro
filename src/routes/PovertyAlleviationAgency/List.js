@@ -24,6 +24,7 @@ import {
 } from 'antd';
 import StandardTableCustom from 'components/StandardTableCustom';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
+import { getCurrentUrlInfo } from '../../utils/tools';
 
 import styles from './List.less';
 
@@ -65,6 +66,7 @@ export default class List extends PureComponent {
     formValues: {},
     // dataLoading: true,
     mounted: false,
+    pageTitle: '',
     customData: {
       count: 0,
       list: [],
@@ -73,9 +75,14 @@ export default class List extends PureComponent {
   };
 
   componentDidMount() {
-    const { dispatch, match } = this.props;
+    const { dispatch, match, location, routerData } = this.props;
+    const { pathname } = location;
     const { params } = match;
     const { type, category } = params;
+    // console.dir(routerData);
+    const currentUrl = getCurrentUrlInfo(routerData, pathname);
+    const { name } = currentUrl;
+    this.setState({ pageTitle: name });
     this.setState({ type });
     this.setState({ category });
     dispatch({
@@ -294,7 +301,7 @@ export default class List extends PureComponent {
 
   render() {
     const { loading } = this.props;
-    const { customData } = this.state;
+    const { customData, pageTitle } = this.state;
     const scroll = {
       x: 1000,
     };
@@ -429,7 +436,7 @@ export default class List extends PureComponent {
     // const { type, category } = this.props.match.params;
     // console.dir(this.props);
     return (
-      <PageHeaderLayout title="查询表格">
+      <PageHeaderLayout title={`${pageTitle}列表`}>
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderForm()}</div>
