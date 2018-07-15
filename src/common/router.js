@@ -225,7 +225,7 @@ export const getRouterData = app => {
     },
     '/systemconfig/log/errorlog/details/:errorLogId/paraminfo': {
       component: dynamicWrapper(app, ['errorlog'], () =>
-        import('../routes/ErrorLog/Details/BasicInfo')
+        import('../routes/ErrorLog/Details/ParamInfo')
       ),
     },
   };

@@ -19,10 +19,12 @@ import {
   // Modal,
   // message,
   Badge,
+  BackTop,
   //   Divider,
 } from 'antd';
 import StandardTableCustom from 'components/StandardTableCustom';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
+import Ellipsis from '../../components/Ellipsis';
 import { getCurrentUrlInfo } from '../../utils/tools';
 
 import styles from './List.less';
@@ -313,11 +315,11 @@ export default class List extends PureComponent {
         dataIndex: 'url',
         width: 280,
         align: 'center',
-        render: (val, record) => (
+        render: val => (
           <Fragment>
-            <Tooltip placement="right" title={`${record.url}`}>
-              <span className="oneLineText">{val}</span>
-            </Tooltip>
+            <Ellipsis tooltip lines={1}>
+              {val}
+            </Ellipsis>
           </Fragment>
         ),
       },
@@ -327,9 +329,9 @@ export default class List extends PureComponent {
         align: 'center',
         render: val => (
           <Fragment>
-            <Tooltip placement="right" title={val}>
-              <span className="oneLineText">{val}</span>
-            </Tooltip>
+            <Ellipsis tooltip lines={1}>
+              {val}
+            </Ellipsis>
           </Fragment>
         ),
       },
@@ -412,6 +414,7 @@ export default class List extends PureComponent {
             />
           </div>
         </Card>
+        <BackTop />
       </PageHeaderLayout>
     );
   }

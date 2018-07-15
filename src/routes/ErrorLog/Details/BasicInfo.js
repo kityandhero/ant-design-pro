@@ -10,6 +10,7 @@ import {
   // InputNumber,
   // DatePicker,
   Spin,
+  BackTop,
   // Icon,
   // Divider,
   // Select,
@@ -54,27 +55,61 @@ export default class BasicInfo extends PureComponent {
     const { metaData } = this.state;
     return (
       <Fragment>
-        <Card title="基本信息" style={{ marginBottom: 24 }} bordered={false}>
+        <Card title="基础信息" style={{ marginBottom: 24 }} bordered={false}>
           <Spin spinning={loading}>
-            <DescriptionList className={styles.headerList} size="small" col="1">
-              <Description term="Url">{metaData.url || ''}</Description>
-              <Description term="异常信息">{metaData.message || ''}</Description>
-              <Description term="请求域">{metaData.host || ''}</Description>
-              <Description term="发生源">{metaData.source || ''}</Description>
+            <DescriptionList className={styles.headerList} size="small" col="1" layout="vertical">
+              <Description
+                term="Url"
+                style={{
+                  marginBottom: '16px',
+                }}
+              >
+                {metaData.url || ''}
+              </Description>
+              <Description
+                term="异常信息"
+                style={{
+                  marginBottom: '16px',
+                }}
+              >
+                {metaData.message || ''}
+              </Description>
+              <Description
+                term="请求域"
+                style={{
+                  marginBottom: '16px',
+                }}
+              >
+                {metaData.host || ''}
+              </Description>
+              <Description
+                term="发生源"
+                style={{
+                  marginBottom: '16px',
+                }}
+              >
+                {metaData.source || ''}
+              </Description>
               <Description
                 term="创建时间"
                 style={{
-                  marginBottom: '24px',
+                  marginBottom: '16px',
                 }}
               >
                 {metaData.createTime || ''}
               </Description>
-              <Description term="堆栈跟踪">
+              <Description
+                term="堆栈跟踪"
+                style={{
+                  marginBottom: '24px',
+                }}
+              >
                 <span dangerouslySetInnerHTML={{ __html: metaData.stackTrace }} />
               </Description>
             </DescriptionList>
           </Spin>
         </Card>
+        <BackTop />
       </Fragment>
     );
   }
