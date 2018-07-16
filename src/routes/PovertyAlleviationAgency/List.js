@@ -64,7 +64,6 @@ const status = [
 export default class List extends PureComponent {
   state = {
     formValues: {},
-    // dataLoading: true,
     mounted: false,
     pageTitle: '',
     customData: {
@@ -79,7 +78,6 @@ export default class List extends PureComponent {
     const { pathname } = location;
     const { params } = match;
     const { type, category } = params;
-    // console.dir(routerData);
     const currentUrl = getCurrentUrlInfo(routerData, pathname);
     const { name } = currentUrl;
     this.setState({ pageTitle: name });
@@ -104,13 +102,6 @@ export default class List extends PureComponent {
     const { type, category, mounted } = this.state;
     if (mounted) {
       if (type !== nextType || category !== nextCategory) {
-        // console.dir(nextProps);
-        // console.dir({
-        //   type,
-        //   category,
-        //   nextType,
-        //   nextCategory,
-        // });
         this.setState({ type: nextType });
         this.setState({ category: nextCategory });
         const { dispatch } = nextProps;

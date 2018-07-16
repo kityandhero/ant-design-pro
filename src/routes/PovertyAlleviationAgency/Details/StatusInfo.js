@@ -1,9 +1,26 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
-import { Card, Alert, Button, Form, Row, Col, Input, Spin, BackTop, Divider } from 'antd';
+import {
+  Card,
+  Alert,
+  Button,
+  Form,
+  Row,
+  Col,
+  Input,
+  // InputNumber,
+  // DatePicker,
+  Spin,
+  BackTop,
+  // Icon,
+  Divider,
+  // Select,
+} from 'antd';
+// import styles from './BasicInfo.less';
 
 const { TextArea } = Input;
 const FormItem = Form.Item;
+// const { MonthPicker } = DatePicker;
 
 @connect(({ povertyalleviationagency, loading }) => ({
   povertyalleviationagency,
@@ -105,7 +122,7 @@ export default class BasicInfo extends PureComponent {
 
     return (
       <Fragment>
-        <Card title="基本信息" style={{ marginBottom: 24 }} bordered={false}>
+        <Card title="状态信息" style={{ marginBottom: 24 }} bordered={false}>
           <Spin spinning={loading || saving}>
             <Row gutter={24}>
               <Col className="gutter-row" span={4}>

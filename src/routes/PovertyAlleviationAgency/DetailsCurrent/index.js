@@ -15,8 +15,8 @@ const tabList = [
     tab: '基本信息',
   },
   {
-    key: 'paraminfo',
-    tab: '参数信息',
+    key: 'contentinfo',
+    tab: '详情信息',
   },
 ];
 
@@ -28,7 +28,6 @@ export default class DetailsCurrent extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      // povertyAlleviationAgencyId: 0,
       metaData: {},
     };
   }
@@ -55,9 +54,9 @@ export default class DetailsCurrent extends PureComponent {
           pathname: `${match.url}/basicinfo`,
         };
         break;
-      case 'paraminfo':
+      case 'contentinfo':
         location = {
-          pathname: `${match.url}/paraminfo`,
+          pathname: `${match.url}/contentinfo`,
         };
         break;
       default:
