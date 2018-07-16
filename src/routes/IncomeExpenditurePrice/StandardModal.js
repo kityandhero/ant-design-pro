@@ -105,7 +105,6 @@ export default class StandardModal extends PureComponent {
             const { status } = data;
             this.setState({ saving: false });
             if (status === 200) {
-              this.setState({ saving: false });
               this.setState({ visible: false });
               afterOK();
             }

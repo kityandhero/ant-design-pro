@@ -1,4 +1,9 @@
-import { queryList } from '../services/povertyalleviationagency';
+import {
+  queryList,
+  queryPovertyAlleviationAgency,
+  queryCurrentPovertyAlleviationAgency,
+  updateCurrentBasicInfo,
+} from '../services/povertyalleviationagency';
 
 export default {
   namespace: 'povertyalleviationagency',
@@ -15,6 +20,27 @@ export default {
       const response = yield call(queryList, payload);
       yield put({
         type: 'handleList',
+        payload: response,
+      });
+    },
+    *get({ payload }, { call, put }) {
+      const response = yield call(queryPovertyAlleviationAgency, payload);
+      yield put({
+        type: 'handleGet',
+        payload: response,
+      });
+    },
+    *getcurrent({ payload }, { call, put }) {
+      const response = yield call(queryCurrentPovertyAlleviationAgency, payload);
+      yield put({
+        type: 'handleGetCurrent',
+        payload: response,
+      });
+    },
+    *updatecurrentbasicinfo({ payload }, { call, put }) {
+      const response = yield call(updateCurrentBasicInfo, payload);
+      yield put({
+        type: 'handleUpdateCurrentBasicInfo',
         payload: response,
       });
     },
@@ -52,6 +78,32 @@ export default {
       return {
         ...state,
         data: d,
+      };
+    },
+    handleGet(state, action) {
+      let d = action.payload;
+
+      if (d === undefined) {
+        d = {
+          povertyAlleviationAgency: {},
+        };
+      }
+      return {
+        ...state,
+        data: d.data.povertyAlleviationAgency,
+      };
+    },
+    handleGetCurrent(state, action) {
+      let d = action.payload;
+
+      if (d === undefined) {
+        d = {
+          povertyAlleviationAgency: {},
+        };
+      }
+      return {
+        ...state,
+        data: d.data.povertyAlleviationAgency,
       };
     },
   },

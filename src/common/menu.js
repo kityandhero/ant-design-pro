@@ -271,7 +271,7 @@ const menuData = [
       {
         name: '当前机构信息',
         icon: 'info-circle-o',
-        path: 'currentagency',
+        path: 'povertyalleviationagency/detailscurrent/basicinfo',
       },
       {
         name: '权限管理',
