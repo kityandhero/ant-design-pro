@@ -1,27 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
-import {
-  Row,
-  Col,
-  Card,
-  Form,
-  Input,
-  Select,
-  Icon,
-  Button,
-  // Dropdown,
-  // Menu,
-  // InputNumber,
-  // DatePicker,
-  Tooltip,
-  // Modal,
-  // Modal,
-  // message,
-  Badge,
-  BackTop,
-  //   Divider,
-} from 'antd';
+import { Row, Col, Card, Form, Input, Select, Icon, Button, Badge, BackTop } from 'antd';
 import StandardTableCustom from 'components/StandardTableCustom';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import Ellipsis from '../../components/Ellipsis';
@@ -30,7 +10,7 @@ import { getCurrentUrlInfo } from '../../utils/tools';
 import styles from './List.less';
 
 const FormItem = Form.Item;
-// const { Option } = Select;
+
 const getValue = obj =>
   Object.keys(obj)
     .map(key => obj[key])
@@ -59,7 +39,6 @@ const status = [
 export default class List extends PureComponent {
   state = {
     formValues: {},
-    // dataLoading: true,
     mounted: false,
     pageTitle: '',
     customData: {
@@ -74,7 +53,6 @@ export default class List extends PureComponent {
     const { pathname } = location;
     const { params } = match;
     const { type, category } = params;
-    // console.dir(routerData);
     const currentUrl = getCurrentUrlInfo(routerData, pathname);
     const { name } = currentUrl;
     this.setState({ pageTitle: name });
@@ -99,13 +77,6 @@ export default class List extends PureComponent {
     const { type, category, mounted } = this.state;
     if (mounted) {
       if (type !== nextType || category !== nextCategory) {
-        // console.dir(nextProps);
-        // console.dir({
-        //   type,
-        //   category,
-        //   nextType,
-        //   nextCategory,
-        // });
         this.setState({ type: nextType });
         this.setState({ category: nextCategory });
         const { dispatch } = nextProps;
@@ -128,7 +99,6 @@ export default class List extends PureComponent {
   handleStandardTableChange = (pagination, filtersArg, sorter) => {
     const { dispatch } = this.props;
     const { formValues, type, category } = this.state;
-    // console.dir(pagination);
     const filters = Object.keys(filtersArg).reduce((obj, key) => {
       const newObj = { ...obj };
       newObj[key] = getValue(filtersArg[key]);
@@ -343,9 +313,9 @@ export default class List extends PureComponent {
         sorter: false,
         render: val => (
           <Fragment>
-            <Tooltip placement="right" title={val}>
-              <span className="oneLineText">{val}</span>
-            </Tooltip>
+            <Ellipsis tooltip lines={1}>
+              {val}
+            </Ellipsis>
           </Fragment>
         ),
       },
@@ -382,8 +352,6 @@ export default class List extends PureComponent {
       },
     ];
 
-    // const { type, category } = this.props.match.params;
-    // console.dir(this.props);
     return (
       <PageHeaderLayout title={`${pageTitle}列表`}>
         <Card bordered={false}>

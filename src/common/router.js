@@ -228,6 +228,11 @@ export const getRouterData = app => {
         import('../routes/ErrorLog/Details/ParamInfo')
       ),
     },
+    '/systemconfig/log/povertyalleviationagencyuserloginlog/listforcurrentpovertyalleviationagency': {
+      component: dynamicWrapper(app, ['povertyalleviationagencyuserloginlog'], () =>
+        import('../routes/PovertyAlleviationAgencyUserLoginLog/ListForCurrentPovertyAlleviationAgency')
+      ),
+    },
   };
   // Get name from ./menu.js or just set it in the router data.
   const menuData = getFlatMenuData(getMenuData());

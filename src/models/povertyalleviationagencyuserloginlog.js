@@ -1,7 +1,7 @@
-import { queryList } from '../services/povertyalleviationagency';
+import { queryListForPovertyAlleviationAgency } from '../services/povertyalleviationagencyuserloginlog';
 
 export default {
-  namespace: 'povertyalleviationagency',
+  namespace: 'povertyalleviationagencyuserloginlog',
 
   state: {
     data: {
@@ -11,17 +11,17 @@ export default {
   },
 
   effects: {
-    *list({ payload }, { call, put }) {
-      const response = yield call(queryList, payload);
+    *listforpovertyalleviationagency({ payload }, { call, put }) {
+      const response = yield call(queryListForPovertyAlleviationAgency, payload);
       yield put({
-        type: 'handleList',
+        type: 'handleListForPovertyAlleviationAgency',
         payload: response,
       });
     },
   },
 
   reducers: {
-    handleList(state, action) {
+    handleListForPovertyAlleviationAgency(state, action) {
       let d = action.payload;
 
       if (d === undefined) {
@@ -34,7 +34,7 @@ export default {
 
       if (status === 200) {
         for (const o of d.list) {
-          o.key = o.povertyAlleviationAgencyId;
+          o.key = o.povertyAlleviationAgencyUserLoginLogId;
         }
 
         d.pagination = {

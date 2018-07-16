@@ -1,35 +1,15 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
-// import { routerRedux } from 'dva/router';
-import moment from 'moment';
-import {
-  Row,
-  Col,
-  Card,
-  Form,
-  Input,
-  Select,
-  Icon,
-  Button,
-  // Dropdown,
-  // Menu,
-  // InputNumber,
-  // DatePicker,
-  Tooltip,
-  // Modal,
-  // Modal,
-  // message,
-  Badge,
-  Divider,
-} from 'antd';
+import { Row, Col, Card, Form, Input, Select, Button, Badge, BackTop } from 'antd';
 import StandardTableCustom from 'components/StandardTableCustom';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
+import Ellipsis from '../../components/Ellipsis';
 import { getCurrentUrlInfo } from '../../utils/tools';
 
 import styles from './List.less';
 
 const FormItem = Form.Item;
-// const { Option } = Select;
+
 const getValue = obj =>
   Object.keys(obj)
     .map(key => obj[key])
@@ -48,23 +28,16 @@ const status = [
     text: '正常',
     value: 2,
   },
-  {
-    key: -2,
-    badge: 'error',
-    text: '已禁用',
-    value: -2,
-  },
 ];
 
-@connect(({ povertyalleviationagency, loading }) => ({
-  povertyalleviationagency,
-  loading: loading.models.povertyalleviationagency,
+@connect(({ povertyalleviationagencyuserloginlog, loading }) => ({
+  povertyalleviationagencyuserloginlog,
+  loading: loading.models.povertyalleviationagencyuserloginlog,
 }))
 @Form.create()
-export default class List extends PureComponent {
+export default class ListForCurrentPovertyAlleviationAgency extends PureComponent {
   state = {
     formValues: {},
-    // dataLoading: true,
     mounted: false,
     pageTitle: '',
     customData: {
@@ -86,12 +59,12 @@ export default class List extends PureComponent {
     this.setState({ type });
     this.setState({ category });
     dispatch({
-      type: 'povertyalleviationagency/list',
+      type: 'povertyalleviationagencyuserloginlog/listforpovertyalleviationagency',
       payload: { type, category },
     }).then(() => {
       this.setState({ mounted: true });
       const {
-        povertyalleviationagency: { data },
+        povertyalleviationagencyuserloginlog: { data },
       } = this.props;
       this.setState({ customData: data });
     });
@@ -104,25 +77,18 @@ export default class List extends PureComponent {
     const { type, category, mounted } = this.state;
     if (mounted) {
       if (type !== nextType || category !== nextCategory) {
-        // console.dir(nextProps);
-        // console.dir({
-        //   type,
-        //   category,
-        //   nextType,
-        //   nextCategory,
-        // });
         this.setState({ type: nextType });
         this.setState({ category: nextCategory });
         const { dispatch } = nextProps;
         dispatch({
-          type: 'povertyalleviationagency/list',
+          type: 'povertyalleviationagencyuserloginlog/listforpovertyalleviationagency',
           payload: {
             type: nextType,
             category: nextCategory,
           },
         }).then(() => {
           const {
-            povertyalleviationagency: { data },
+            povertyalleviationagencyuserloginlog: { data },
           } = this.props;
           this.setState({ customData: data });
         });
@@ -153,11 +119,11 @@ export default class List extends PureComponent {
     }
 
     dispatch({
-      type: 'povertyalleviationagency/list',
+      type: 'povertyalleviationagencyuserloginlog/listforpovertyalleviationagency',
       payload: params,
     }).then(() => {
       const {
-        povertyalleviationagency: { data },
+        povertyalleviationagencyuserloginlog: { data },
       } = this.props;
       this.setState({ customData: data });
     });
@@ -171,20 +137,18 @@ export default class List extends PureComponent {
       formValues: {},
     });
     dispatch({
-      type: 'povertyalleviationagency/list',
+      type: 'povertyalleviationagencyuserloginlog/listforpovertyalleviationagency',
       payload: {
         type,
         category,
       },
     }).then(() => {
       const {
-        povertyalleviationagency: { data },
+        povertyalleviationagencyuserloginlog: { data },
       } = this.props;
       this.setState({ customData: data });
     });
   };
-
-  handleEditClick = () => {};
 
   refreshGrid = pageNo => {
     const { dispatch } = this.props;
@@ -198,11 +162,11 @@ export default class List extends PureComponent {
       category,
     };
     dispatch({
-      type: 'povertyalleviationagency/list',
+      type: 'povertyalleviationagencyuserloginlog/listforpovertyalleviationagency',
       payload: params,
     }).then(() => {
       const {
-        povertyalleviationagency: { data },
+        povertyalleviationagencyuserloginlog: { data },
       } = this.props;
       this.setState({ customData: data });
     });
@@ -227,7 +191,7 @@ export default class List extends PureComponent {
       });
 
       dispatch({
-        type: 'povertyalleviationagency/list',
+        type: 'povertyalleviationagencyuserloginlog/listforpovertyalleviationagency',
         payload: {
           ...values,
           type,
@@ -235,14 +199,12 @@ export default class List extends PureComponent {
         },
       }).then(() => {
         const {
-          povertyalleviationagency: { data },
+          povertyalleviationagencyuserloginlog: { data },
         } = this.props;
         this.setState({ customData: data });
       });
     });
   };
-
-  showAddNewModal = () => {};
 
   renderSimpleForm() {
     const { form } = this.props;
@@ -256,6 +218,7 @@ export default class List extends PureComponent {
         </Select.Option>
       );
     });
+
     return (
       <Form onSubmit={this.handleSearch} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }} justify="end">
@@ -284,10 +247,6 @@ export default class List extends PureComponent {
               <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>
                 重置
               </Button>
-              <Divider type="vertical" />
-              <Button type="primary" onClick={this.showAddNewModal}>
-                新增标准
-              </Button>
             </span>
           </Col>
         </Row>
@@ -302,106 +261,96 @@ export default class List extends PureComponent {
   render() {
     const { loading } = this.props;
     const { customData, pageTitle } = this.state;
-    const scroll = {
-      x: 1000,
-    };
     const columns = [
       {
-        title: 'Id',
-        dataIndex: 'povertyalleviationagencyId',
-        width: 60,
+        title: 'ID',
+        dataIndex: 'povertyAlleviationAgencyUserLoginLogId',
+        width: 80,
         align: 'center',
-        fixed: 'left',
       },
       {
-        title: '名称',
-        dataIndex: 'name',
-        width: 120,
+        title: '登录名',
+        dataIndex: 'loginName',
+        width: 140,
         align: 'center',
-        fixed: 'left',
+        render: val => (
+          <Fragment>
+            <Ellipsis tooltip lines={1}>
+              {val}
+            </Ellipsis>
+          </Fragment>
+        ),
+      },
+      {
+        title: '姓名',
+        dataIndex: 'name',
+        width: 100,
+        align: 'center',
+        render: val => (
+          <Fragment>
+            <Ellipsis tooltip lines={1}>
+              {val}
+            </Ellipsis>
+          </Fragment>
+        ),
+      },
+      {
+        title: '拥有角色',
+        dataIndex: 'povertyAlleviationAgencyUserRoleName',
+        width: 100,
+        align: 'center',
+        render: val => (
+          <Fragment>
+            <Ellipsis tooltip lines={1}>
+              {val}
+            </Ellipsis>
+          </Fragment>
+        ),
+      },
+      {
+        title: '所属机构',
+        dataIndex: 'povertyAlleviationAgencyName',
+        width: 140,
+        align: 'center',
+        render: val => (
+          <Fragment>
+            <Ellipsis tooltip lines={1}>
+              {val}
+            </Ellipsis>
+          </Fragment>
+        ),
+      },
+      {
+        title: '机构管辖地区',
+        dataIndex: 'provinceName',
+        align: 'center',
         render: (val, record) => (
           <Fragment>
-            <Tooltip placement="right" title={`${record.name} ${record.description}`}>
-              <span className="oneLineText">{val}</span>
-            </Tooltip>
+            <Ellipsis tooltip lines={1}>
+              {`${record.provinceName} ${record.cityName} ${record.districtName} ${
+                record.areaName
+              }`}
+            </Ellipsis>
           </Fragment>
         ),
       },
       {
-        title: '类型',
-        dataIndex: 'categoryName',
-        align: 'center',
-        render: val => (
-          <Fragment>
-            <Tooltip placement="right" title={val}>
-              <span className="oneLineText">{val}</span>
-            </Tooltip>
-          </Fragment>
-        ),
-      },
-      {
-        title: '单位',
-        dataIndex: 'unitName',
-        align: 'center',
-        render: val => (
-          <Fragment>
-            <Tooltip placement="right" title={val}>
-              <span className="oneLineText">{val}</span>
-            </Tooltip>
-          </Fragment>
-        ),
-      },
-      {
-        title: '最高价',
-        dataIndex: 'max',
-        align: 'center',
-        render: val => (
-          <Fragment>
-            <Tooltip placement="right" title={val}>
-              <span className="oneLineText">{val}</span>
-            </Tooltip>
-          </Fragment>
-        ),
-      },
-      {
-        title: '最低价',
-        dataIndex: 'min',
-        align: 'center',
-        render: val => (
-          <Fragment>
-            <Tooltip placement="right" title={val}>
-              <span className="oneLineText">{val}</span>
-            </Tooltip>
-          </Fragment>
-        ),
-      },
-      {
-        title: '均价',
-        dataIndex: 'average',
-        align: 'center',
-        render: val => (
-          <Fragment>
-            <Tooltip placement="right" title={val}>
-              <span className="oneLineText">{val}</span>
-            </Tooltip>
-          </Fragment>
-        ),
-      },
-      {
-        title: '创建时间',
-        dataIndex: 'createTime',
+        title: '登陆时间',
+        width: 150,
+        dataIndex: 'loginTime',
         align: 'center',
         sorter: false,
         render: val => (
           <Fragment>
-            <Tooltip placement="right" title={moment(val).format('YYYY-MM-DD HH:mm:ss')}>
-              <span className="oneLineText">{moment(val).format('YYYY-MM-DD HH:mm:ss')}</span>
-            </Tooltip>
+            <Ellipsis tooltip lines={1}>
+              {val}
+            </Ellipsis>
           </Fragment>
         ),
       },
       {
         title: '状态',
+        width: 100,
         dataIndex: 'status',
         align: 'center',
         filters: status,
@@ -418,19 +367,6 @@ export default class List extends PureComponent {
           return <Badge status={badgeValue} text={record.statusNote} />;
         },
       },
-      {
-        title: '操作',
-        width: 78,
-        align: 'center',
-        fixed: 'right',
-        render: (text, record) => (
-          <Fragment>
-            <a onClick={() => this.handleEditClick(record)}>
-              <Icon type="edit" className={styles.editButton} />编辑
-            </a>
-          </Fragment>
-        ),
-      },
     ];
 
     // const { type, category } = this.props.match.params;
@@ -441,15 +377,31 @@ export default class List extends PureComponent {
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderForm()}</div>
             <StandardTableCustom
-              scroll={scroll}
               loading={loading}
               data={customData}
               columns={columns}
+              expandedRowRender={record => (
+                <div>
+                  <p>
+                    <span className="bold">Url：</span>
+                    {record.url}
+                  </p>
+                  <p>
+                    <span className="bold">异常信息：</span>
+                    {record.message}
+                  </p>
+                  <p>
+                    <span className="bold">堆栈信息：</span>
+                    <span dangerouslySetInnerHTML={{ __html: record.stackTrace }} />
+                  </p>
+                </div>
+              )}
               onSelectRow={this.handleSelectRows}
               onChange={this.handleStandardTableChange}
             />
           </div>
         </Card>
+        <BackTop />
       </PageHeaderLayout>
     );
   }

@@ -242,7 +242,7 @@ const menuData = [
           {
             name: '登陆日志',
             icon: 'info-circle-o',
-            path: 'loginlog/list',
+            path: 'povertyalleviationagencyuserloginlog/listforcurrentpovertyalleviationagency',
           },
         ],
       },
