@@ -383,16 +383,8 @@ export default class ListForCurrentPovertyAlleviationAgency extends PureComponen
               expandedRowRender={record => (
                 <div>
                   <p>
-                    <span className="bold">Url：</span>
-                    {record.url}
-                  </p>
-                  <p>
-                    <span className="bold">异常信息：</span>
-                    {record.message}
-                  </p>
-                  <p>
-                    <span className="bold">堆栈信息：</span>
-                    <span dangerouslySetInnerHTML={{ __html: record.stackTrace }} />
+                    <span className="bold">间接描述：</span>
+                    {record.description}
                   </p>
                 </div>
               )}
