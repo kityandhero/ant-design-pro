@@ -353,7 +353,7 @@ export default class ListForCurrentPovertyAlleviationAgency extends PureComponen
     ];
 
     return (
-      <PageHeaderLayout title={`${pageTitle}列表`}>
+      <PageHeaderLayout title={`当前机构${pageTitle}`}>
         <Card bordered={false}>
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderForm()}</div>
