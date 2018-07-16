@@ -30,9 +30,9 @@ const status = [
   },
 ];
 
-@connect(({ excelimporthistory, loading }) => ({
-  excelimporthistory,
-  loading: loading.models.excelimporthistory,
+@connect(({ povertyalleviationagencyuser, loading }) => ({
+  povertyalleviationagencyuser,
+  loading: loading.models.povertyalleviationagencyuser,
 }))
 @Form.create()
 export default class List extends PureComponent {
@@ -58,12 +58,12 @@ export default class List extends PureComponent {
     this.setState({ type });
     this.setState({ category });
     dispatch({
-      type: 'excelimporthistory/list',
+      type: 'povertyalleviationagencyuser/list',
       payload: { type, category },
     }).then(() => {
       this.setState({ mounted: true });
       const {
-        excelimporthistory: { data },
+        povertyalleviationagencyuser: { data },
       } = this.props;
       this.setState({ customData: data });
     });
@@ -80,14 +80,14 @@ export default class List extends PureComponent {
         this.setState({ category: nextCategory });
         const { dispatch } = nextProps;
         dispatch({
-          type: 'excelimporthistory/list',
+          type: 'povertyalleviationagencyuser/list',
           payload: {
             type: nextType,
             category: nextCategory,
           },
         }).then(() => {
           const {
-            excelimporthistory: { data },
+            povertyalleviationagencyuser: { data },
           } = this.props;
           this.setState({ customData: data });
         });
@@ -117,11 +117,11 @@ export default class List extends PureComponent {
     }
 
     dispatch({
-      type: 'excelimporthistory/list',
+      type: 'povertyalleviationagencyuser/list',
       payload: params,
     }).then(() => {
       const {
-        excelimporthistory: { data },
+        povertyalleviationagencyuser: { data },
       } = this.props;
       this.setState({ customData: data });
     });
@@ -135,14 +135,14 @@ export default class List extends PureComponent {
       formValues: {},
     });
     dispatch({
-      type: 'excelimporthistory/list',
+      type: 'povertyalleviationagencyuser/list',
       payload: {
         type,
         category,
       },
     }).then(() => {
       const {
-        excelimporthistory: { data },
+        povertyalleviationagencyuser: { data },
       } = this.props;
       this.setState({ customData: data });
     });
@@ -160,11 +160,11 @@ export default class List extends PureComponent {
       category,
     };
     dispatch({
-      type: 'excelimporthistory/list',
+      type: 'povertyalleviationagencyuser/list',
       payload: params,
     }).then(() => {
       const {
-        excelimporthistory: { data },
+        povertyalleviationagencyuser: { data },
       } = this.props;
       this.setState({ customData: data });
     });
@@ -189,7 +189,7 @@ export default class List extends PureComponent {
       });
 
       dispatch({
-        type: 'excelimporthistory/list',
+        type: 'povertyalleviationagencyuser/list',
         payload: {
           ...values,
           type,
@@ -197,7 +197,7 @@ export default class List extends PureComponent {
         },
       }).then(() => {
         const {
-          excelimporthistory: { data },
+          povertyalleviationagencyuser: { data },
         } = this.props;
         this.setState({ customData: data });
       });
@@ -262,14 +262,14 @@ export default class List extends PureComponent {
     const columns = [
       {
         title: 'ID',
-        dataIndex: 'excelImportHistoryId',
+        dataIndex: 'povertyAlleviationAgencyUserId',
         width: 80,
         align: 'center',
       },
       {
         title: '文件名称',
         dataIndex: 'fileName',
-        width: 160,
+        width: 140,
         align: 'center',
         render: val => (
           <Fragment>
@@ -308,6 +308,7 @@ export default class List extends PureComponent {
       {
         title: '数据类型',
         dataIndex: 'departmentName',
+        width: 180,
         align: 'center',
         render: val => (
           <Fragment>

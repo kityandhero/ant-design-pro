@@ -30,12 +30,12 @@ const status = [
   },
 ];
 
-@connect(({ excelimporthistory, loading }) => ({
-  excelimporthistory,
-  loading: loading.models.excelimporthistory,
+@connect(({ povertyalleviationagencyuser, loading }) => ({
+  povertyalleviationagencyuser,
+  loading: loading.models.povertyalleviationagencyuser,
 }))
 @Form.create()
-export default class List extends PureComponent {
+export default class ListForCurrentPovertyAlleviationAgency extends PureComponent {
   state = {
     formValues: {},
     mounted: false,
@@ -58,12 +58,12 @@ export default class List extends PureComponent {
     this.setState({ type });
     this.setState({ category });
     dispatch({
-      type: 'excelimporthistory/list',
+      type: 'povertyalleviationagencyuser/listforpovertyalleviationagency',
       payload: { type, category },
     }).then(() => {
       this.setState({ mounted: true });
       const {
-        excelimporthistory: { data },
+        povertyalleviationagencyuser: { data },
       } = this.props;
       this.setState({ customData: data });
     });
@@ -80,14 +80,14 @@ export default class List extends PureComponent {
         this.setState({ category: nextCategory });
         const { dispatch } = nextProps;
         dispatch({
-          type: 'excelimporthistory/list',
+          type: 'povertyalleviationagencyuser/listforpovertyalleviationagency',
           payload: {
             type: nextType,
             category: nextCategory,
           },
         }).then(() => {
           const {
-            excelimporthistory: { data },
+            povertyalleviationagencyuser: { data },
           } = this.props;
           this.setState({ customData: data });
         });
@@ -117,11 +117,11 @@ export default class List extends PureComponent {
     }
 
     dispatch({
-      type: 'excelimporthistory/list',
+      type: 'povertyalleviationagencyuser/listforpovertyalleviationagency',
       payload: params,
     }).then(() => {
       const {
-        excelimporthistory: { data },
+        povertyalleviationagencyuser: { data },
       } = this.props;
       this.setState({ customData: data });
     });
@@ -135,14 +135,14 @@ export default class List extends PureComponent {
       formValues: {},
     });
     dispatch({
-      type: 'excelimporthistory/list',
+      type: 'povertyalleviationagencyuser/listforpovertyalleviationagency',
       payload: {
         type,
         category,
       },
     }).then(() => {
       const {
-        excelimporthistory: { data },
+        povertyalleviationagencyuser: { data },
       } = this.props;
       this.setState({ customData: data });
     });
@@ -160,11 +160,11 @@ export default class List extends PureComponent {
       category,
     };
     dispatch({
-      type: 'excelimporthistory/list',
+      type: 'povertyalleviationagencyuser/listforpovertyalleviationagency',
       payload: params,
     }).then(() => {
       const {
-        excelimporthistory: { data },
+        povertyalleviationagencyuser: { data },
       } = this.props;
       this.setState({ customData: data });
     });
@@ -189,7 +189,7 @@ export default class List extends PureComponent {
       });
 
       dispatch({
-        type: 'excelimporthistory/list',
+        type: 'povertyalleviationagencyuser/listforpovertyalleviationagency',
         payload: {
           ...values,
           type,
@@ -197,7 +197,7 @@ export default class List extends PureComponent {
         },
       }).then(() => {
         const {
-          excelimporthistory: { data },
+          povertyalleviationagencyuser: { data },
         } = this.props;
         this.setState({ customData: data });
       });
@@ -262,52 +262,27 @@ export default class List extends PureComponent {
     const columns = [
       {
         title: 'ID',
-        dataIndex: 'excelImportHistoryId',
+        dataIndex: 'povertyAlleviationAgencyUserId',
         width: 80,
         align: 'center',
       },
       {
-        title: '文件名称',
-        dataIndex: 'fileName',
-        width: 160,
-        align: 'center',
-        render: val => (
-          <Fragment>
-            <Ellipsis tooltip lines={1}>
-              {val}
-            </Ellipsis>
-          </Fragment>
-        ),
-      },
-      {
-        title: '文件大小',
-        dataIndex: 'fileSize',
-        width: 100,
-        align: 'center',
-        render: val => (
-          <Fragment>
-            <Ellipsis tooltip lines={1}>
-              {`${val}KB`}
-            </Ellipsis>
-          </Fragment>
-        ),
-      },
-      {
-        title: '总条目',
-        dataIndex: 'dataCount',
+        title: '登录名',
+        dataIndex: 'loginName',
         width: 140,
         align: 'center',
         render: val => (
           <Fragment>
             <Ellipsis tooltip lines={1}>
-              {`${val}条`}
+              {val}
             </Ellipsis>
           </Fragment>
         ),
       },
       {
-        title: '数据类型',
-        dataIndex: 'departmentName',
+        title: '名称',
+        dataIndex: 'name',
+        width: 100,
         align: 'center',
         render: val => (
           <Fragment>
@@ -318,9 +293,34 @@ export default class List extends PureComponent {
         ),
       },
       {
-        title: '导入时间',
+        title: '拥有角色',
+        dataIndex: 'povertyAlleviationAgencyUserRoleName',
+        width: 100,
+        align: 'center',
+        render: val => (
+          <Fragment>
+            <Ellipsis tooltip lines={1}>
+              {val}
+            </Ellipsis>
+          </Fragment>
+        ),
+      },
+      {
+        title: '所属机构',
+        dataIndex: 'povertyAlleviationAgencyName',
+        align: 'center',
+        render: val => (
+          <Fragment>
+            <Ellipsis tooltip lines={1}>
+              {val}
+            </Ellipsis>
+          </Fragment>
+        ),
+      },
+      {
+        title: '创建时间',
         width: 150,
-        dataIndex: 'importTime',
+        dataIndex: 'createTime',
         align: 'center',
         sorter: false,
         render: val => (
@@ -364,12 +364,8 @@ export default class List extends PureComponent {
               expandedRowRender={record => (
                 <div>
                   <p>
-                    <span className="bold">文件名称：</span>
-                    {record.fileName}
-                  </p>
-                  <p>
-                    <span className="bold">数据类型：</span>
-                    {record.departmentName}
+                    <span className="bold">简介描述：</span>
+                    {record.description}
                   </p>
                 </div>
               )}

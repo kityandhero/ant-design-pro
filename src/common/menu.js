@@ -259,12 +259,12 @@ const menuData = [
           {
             name: '新增账户',
             icon: 'user-add',
-            path: 'add',
+            path: 'povertyalleviationagencyuser/add',
           },
           {
             name: '账户列表',
             icon: 'contacts',
-            path: 'list',
+            path: 'povertyalleviationagencyuser/listforcurrentpovertyalleviationagency',
           },
         ],
       },

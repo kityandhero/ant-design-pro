@@ -238,6 +238,16 @@ export const getRouterData = app => {
         import('../routes/ExcelImportHistory/List')
       ),
     },
+    '/systemconfig/account/povertyalleviationagencyuser/list': {
+      component: dynamicWrapper(app, ['povertyalleviationagencyuser'], () =>
+        import('../routes/PovertyAlleviationAgencyUser/List')
+      ),
+    },
+    '/systemconfig/account/povertyalleviationagencyuser/listforcurrentpovertyalleviationagency': {
+      component: dynamicWrapper(app, ['povertyalleviationagencyuser'], () =>
+        import('../routes/PovertyAlleviationAgencyUser/ListForCurrentPovertyAlleviationAgency')
+      ),
+    },
   };
   // Get name from ./menu.js or just set it in the router data.
   const menuData = getFlatMenuData(getMenuData());

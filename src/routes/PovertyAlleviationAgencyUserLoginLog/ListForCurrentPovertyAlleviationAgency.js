@@ -379,7 +379,7 @@ export default class ListForCurrentPovertyAlleviationAgency extends PureComponen
               expandedRowRender={record => (
                 <div>
                   <p>
-                    <span className="bold">间接描述：</span>
+                    <span className="bold">简介描述：</span>
                     {record.description}
                   </p>
                 </div>
