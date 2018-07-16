@@ -30,12 +30,12 @@ const status = [
   },
 ];
 
-@connect(({ povertyalleviationagencyuserloginlog, loading }) => ({
-  povertyalleviationagencyuserloginlog,
-  loading: loading.models.povertyalleviationagencyuserloginlog,
+@connect(({ excelimporthistory, loading }) => ({
+  excelimporthistory,
+  loading: loading.models.excelimporthistory,
 }))
 @Form.create()
-export default class ListForCurrentPovertyAlleviationAgency extends PureComponent {
+export default class List extends PureComponent {
   state = {
     formValues: {},
     mounted: false,
@@ -58,12 +58,12 @@ export default class ListForCurrentPovertyAlleviationAgency extends PureComponen
     this.setState({ type });
     this.setState({ category });
     dispatch({
-      type: 'povertyalleviationagencyuserloginlog/listforpovertyalleviationagency',
+      type: 'excelimporthistory/list',
       payload: { type, category },
     }).then(() => {
       this.setState({ mounted: true });
       const {
-        povertyalleviationagencyuserloginlog: { data },
+        excelimporthistory: { data },
       } = this.props;
       this.setState({ customData: data });
     });
@@ -80,14 +80,14 @@ export default class ListForCurrentPovertyAlleviationAgency extends PureComponen
         this.setState({ category: nextCategory });
         const { dispatch } = nextProps;
         dispatch({
-          type: 'povertyalleviationagencyuserloginlog/listforpovertyalleviationagency',
+          type: 'excelimporthistory/list',
           payload: {
             type: nextType,
             category: nextCategory,
           },
         }).then(() => {
           const {
-            povertyalleviationagencyuserloginlog: { data },
+            excelimporthistory: { data },
           } = this.props;
           this.setState({ customData: data });
         });
@@ -117,11 +117,11 @@ export default class ListForCurrentPovertyAlleviationAgency extends PureComponen
     }
 
     dispatch({
-      type: 'povertyalleviationagencyuserloginlog/listforpovertyalleviationagency',
+      type: 'excelimporthistory/list',
       payload: params,
     }).then(() => {
       const {
-        povertyalleviationagencyuserloginlog: { data },
+        excelimporthistory: { data },
       } = this.props;
       this.setState({ customData: data });
     });
@@ -135,14 +135,14 @@ export default class ListForCurrentPovertyAlleviationAgency extends PureComponen
       formValues: {},
     });
     dispatch({
-      type: 'povertyalleviationagencyuserloginlog/listforpovertyalleviationagency',
+      type: 'excelimporthistory/list',
       payload: {
         type,
         category,
       },
     }).then(() => {
       const {
-        povertyalleviationagencyuserloginlog: { data },
+        excelimporthistory: { data },
       } = this.props;
       this.setState({ customData: data });
     });
@@ -160,11 +160,11 @@ export default class ListForCurrentPovertyAlleviationAgency extends PureComponen
       category,
     };
     dispatch({
-      type: 'povertyalleviationagencyuserloginlog/listforpovertyalleviationagency',
+      type: 'excelimporthistory/list',
       payload: params,
     }).then(() => {
       const {
-        povertyalleviationagencyuserloginlog: { data },
+        excelimporthistory: { data },
       } = this.props;
       this.setState({ customData: data });
     });
@@ -189,7 +189,7 @@ export default class ListForCurrentPovertyAlleviationAgency extends PureComponen
       });
 
       dispatch({
-        type: 'povertyalleviationagencyuserloginlog/listforpovertyalleviationagency',
+        type: 'excelimporthistory/list',
         payload: {
           ...values,
           type,
@@ -197,7 +197,7 @@ export default class ListForCurrentPovertyAlleviationAgency extends PureComponen
         },
       }).then(() => {
         const {
-          povertyalleviationagencyuserloginlog: { data },
+          excelimporthistory: { data },
         } = this.props;
         this.setState({ customData: data });
       });
@@ -262,13 +262,13 @@ export default class ListForCurrentPovertyAlleviationAgency extends PureComponen
     const columns = [
       {
         title: 'ID',
-        dataIndex: 'povertyAlleviationAgencyUserLoginLogId',
+        dataIndex: 'excelImportHistoryId',
         width: 80,
         align: 'center',
       },
       {
-        title: '登录名',
-        dataIndex: 'loginName',
+        title: '文件名称',
+        dataIndex: 'fileName',
         width: 140,
         align: 'center',
         render: val => (
@@ -280,8 +280,8 @@ export default class ListForCurrentPovertyAlleviationAgency extends PureComponen
         ),
       },
       {
-        title: '姓名',
-        dataIndex: 'name',
+        title: '文件大小',
+        dataIndex: 'fileSize',
         width: 100,
         align: 'center',
         render: val => (
@@ -293,21 +293,8 @@ export default class ListForCurrentPovertyAlleviationAgency extends PureComponen
         ),
       },
       {
-        title: '拥有角色',
-        dataIndex: 'povertyAlleviationAgencyUserRoleName',
-        width: 100,
-        align: 'center',
-        render: val => (
-          <Fragment>
-            <Ellipsis tooltip lines={1}>
-              {val}
-            </Ellipsis>
-          </Fragment>
-        ),
-      },
-      {
-        title: '所属机构',
-        dataIndex: 'povertyAlleviationAgencyName',
+        title: '总条目',
+        dataIndex: 'dataCount',
         width: 140,
         align: 'center',
         render: val => (
@@ -319,23 +306,22 @@ export default class ListForCurrentPovertyAlleviationAgency extends PureComponen
         ),
       },
       {
-        title: '机构管辖地区',
-        dataIndex: 'provinceName',
+        title: '数据类型',
+        dataIndex: 'departmentName',
+        width: 180,
         align: 'center',
-        render: (val, record) => (
+        render: val => (
           <Fragment>
             <Ellipsis tooltip lines={1}>
-              {`${record.provinceName} ${record.cityName} ${record.districtName} ${
-                record.areaName
-              }`}
+              {val}
             </Ellipsis>
           </Fragment>
         ),
       },
       {
-        title: '登陆时间',
+        title: '导入时间',
         width: 150,
-        dataIndex: 'loginTime',
+        dataIndex: 'importTime',
         align: 'center',
         sorter: false,
         render: val => (
@@ -379,8 +365,12 @@ export default class ListForCurrentPovertyAlleviationAgency extends PureComponen
               expandedRowRender={record => (
                 <div>
                   <p>
-                    <span className="bold">间接描述：</span>
-                    {record.description}
+                    <span className="bold">文件名称：</span>
+                    {record.fileName}
+                  </p>
+                  <p>
+                    <span className="bold">数据类型：</span>
+                    {record.departmentName}
                   </p>
                 </div>
               )}

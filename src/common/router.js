@@ -233,6 +233,11 @@ export const getRouterData = app => {
         import('../routes/PovertyAlleviationAgencyUserLoginLog/ListForCurrentPovertyAlleviationAgency')
       ),
     },
+    '/systemconfig/excelimporthistory/list': {
+      component: dynamicWrapper(app, ['excelimporthistory'], () =>
+        import('../routes/ExcelImportHistory/List')
+      ),
+    },
   };
   // Get name from ./menu.js or just set it in the router data.
   const menuData = getFlatMenuData(getMenuData());

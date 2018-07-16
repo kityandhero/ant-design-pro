@@ -249,7 +249,7 @@ const menuData = [
       {
         name: '数据文件导入历史',
         icon: 'profile',
-        path: 'importhistory',
+        path: 'excelimporthistory/list',
       },
       {
         name: '账户管理',
