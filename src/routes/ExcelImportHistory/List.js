@@ -287,7 +287,7 @@ export default class List extends PureComponent {
         render: val => (
           <Fragment>
             <Ellipsis tooltip lines={1}>
-              {val}
+              {`${val}KB`}
             </Ellipsis>
           </Fragment>
         ),
@@ -300,7 +300,7 @@ export default class List extends PureComponent {
         render: val => (
           <Fragment>
             <Ellipsis tooltip lines={1}>
-              {val}
+              {`${val}条`}
             </Ellipsis>
           </Fragment>
         ),
