@@ -27,3 +27,10 @@ export async function updateCurrentBasicInfo(params) {
     body: params,
   });
 }
+
+export async function updateCurrentContent(params) {
+  return request('/api/PovertyAlleviationAgency/UpdateCurrentContent', {
+    method: 'POST',
+    body: params,
+  });
+}

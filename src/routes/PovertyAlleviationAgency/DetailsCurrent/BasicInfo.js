@@ -90,22 +90,18 @@ export default class BasicInfo extends PureComponent {
       },
     };
 
-    const tailFormItemLayout = {
-      wrapperCol: {
-        xs: {
-          span: 24,
-          offset: 0,
-        },
-        sm: {
-          span: 16,
-          offset: 10,
-        },
-      },
-    };
-
     return (
       <Fragment>
-        <Card title="基本信息" style={{ marginBottom: 24 }} bordered={false}>
+        <Card
+          title="基本信息"
+          style={{ marginBottom: 24 }}
+          bordered={false}
+          extra={
+            <Button type="primary" icon="save" onClick={this.handleSubmit}>
+              保存
+            </Button>
+          }
+        >
           <Spin spinning={loading || saving}>
             <Row gutter={24}>
               <Col className="gutter-row" span={4}>
@@ -156,14 +152,6 @@ export default class BasicInfo extends PureComponent {
                   rules: [{ required: false, message: '请输入创建时间!' }],
                   initialValue: metaData.createTime || '',
                 })(<Input disabled />)}
-              </FormItem>
-              <FormItem {...tailFormItemLayout}>
-                <Button type="primary" htmlType="submit">
-                  提交信息
-                </Button>
-                <Button style={{ marginLeft: 30 }} onClick={this.handleFormReset}>
-                  重载数据
-                </Button>
               </FormItem>
             </Form>
           </Spin>

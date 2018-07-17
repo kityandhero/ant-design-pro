@@ -3,6 +3,7 @@ import {
   queryPovertyAlleviationAgency,
   queryCurrentPovertyAlleviationAgency,
   updateCurrentBasicInfo,
+  updateCurrentContent,
 } from '../services/povertyalleviationagency';
 
 export default {
@@ -43,6 +44,9 @@ export default {
         type: 'handleUpdateCurrentBasicInfo',
         payload: response,
       });
+    },
+    *updatecurrentcontent({ payload }, { call }) {
+      yield call(updateCurrentContent, payload);
     },
   },
 
