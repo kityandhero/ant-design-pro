@@ -13,3 +13,31 @@ export async function queryListForPovertyAlleviationAgency(params) {
     body: params,
   });
 }
+
+export async function queryPovertyAlleviationAgencyUser(params) {
+  return request('/api/PovertyAlleviationAgencyUser/Get', {
+    method: 'POST',
+    body: params,
+  });
+}
+
+export async function queryCurrentPovertyAlleviationAgencyUser(params) {
+  return request('/api/PovertyAlleviationAgencyUser/GetCurrent', {
+    method: 'POST',
+    body: params,
+  });
+}
+
+export async function updateCurrentBasicInfo(params) {
+  return request('/api/PovertyAlleviationAgencyUser/UpdateCurrentBasicInfo', {
+    method: 'POST',
+    body: params,
+  });
+}
+
+export async function updateCurrentContent(params) {
+  return request('/api/PovertyAlleviationAgencyUser/UpdateCurrentContent', {
+    method: 'POST',
+    body: params,
+  });
+}

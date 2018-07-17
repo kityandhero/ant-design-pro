@@ -1,6 +1,10 @@
 import {
-  queryListForPovertyAlleviationAgency,
   queryList,
+  queryListForPovertyAlleviationAgency,
+  queryPovertyAlleviationAgencyUser,
+  queryCurrentPovertyAlleviationAgencyUser,
+  updateCurrentBasicInfo,
+  updateCurrentContent,
 } from '../services/povertyalleviationagencyuser';
 
 export default {
@@ -27,6 +31,30 @@ export default {
         type: 'handleListForPovertyAlleviationAgency',
         payload: response,
       });
+    },
+    *get({ payload }, { call, put }) {
+      const response = yield call(queryPovertyAlleviationAgencyUser, payload);
+      yield put({
+        type: 'handleGet',
+        payload: response,
+      });
+    },
+    *getcurrent({ payload }, { call, put }) {
+      const response = yield call(queryCurrentPovertyAlleviationAgencyUser, payload);
+      yield put({
+        type: 'handleGetCurrent',
+        payload: response,
+      });
+    },
+    *updatecurrentbasicinfo({ payload }, { call, put }) {
+      const response = yield call(updateCurrentBasicInfo, payload);
+      yield put({
+        type: 'handleUpdateCurrentBasicInfo',
+        payload: response,
+      });
+    },
+    *updatecurrentcontent({ payload }, { call }) {
+      yield call(updateCurrentContent, payload);
     },
   },
 
@@ -95,6 +123,32 @@ export default {
       return {
         ...state,
         data: d,
+      };
+    },
+    handleGet(state, action) {
+      let d = action.payload;
+
+      if (d === undefined) {
+        d = {
+          povertyAlleviationAgencyUser: {},
+        };
+      }
+      return {
+        ...state,
+        data: d.data.povertyAlleviationAgencyUser,
+      };
+    },
+    handleGetCurrent(state, action) {
+      let d = action.payload;
+
+      if (d === undefined) {
+        d = {
+          povertyAlleviationAgencyUser: {},
+        };
+      }
+      return {
+        ...state,
+        data: d.data.povertyAlleviationAgencyUser,
       };
     },
   },

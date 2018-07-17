@@ -249,18 +249,39 @@ export const getRouterData = app => {
       ),
     },
     '/systemconfig/povertyalleviationagency/detailscurrent': {
+      name: '当前机构信息',
       component: dynamicWrapper(app, ['povertyalleviationagency'], () =>
         import('../routes/PovertyAlleviationAgency/DetailsCurrent')
       ),
     },
     '/systemconfig/povertyalleviationagency/detailscurrent/basicinfo': {
+      name: '基本信息',
       component: dynamicWrapper(app, ['povertyalleviationagency'], () =>
         import('../routes/PovertyAlleviationAgency/DetailsCurrent/BasicInfo')
       ),
     },
     '/systemconfig/povertyalleviationagency/detailscurrent/contentinfo': {
+      name: '详情信息',
       component: dynamicWrapper(app, ['povertyalleviationagency'], () =>
         import('../routes/PovertyAlleviationAgency/DetailsCurrent/ContentInfo')
+      ),
+    },
+    '/systemconfig/povertyalleviationagencyuser/detailscurrent': {
+      name: '当前账户信息',
+      component: dynamicWrapper(app, ['povertyalleviationagencyuser'], () =>
+        import('../routes/PovertyAlleviationAgencyUser/DetailsCurrent')
+      ),
+    },
+    '/systemconfig/povertyalleviationagencyuser/detailscurrent/basicinfo': {
+      name: '基本信息',
+      component: dynamicWrapper(app, ['povertyalleviationagencyuser'], () =>
+        import('../routes/PovertyAlleviationAgencyUser/DetailsCurrent/BasicInfo')
+      ),
+    },
+    '/systemconfig/povertyalleviationagencyuser/detailscurrent/avatarinfo': {
+      name: '设置头像',
+      component: dynamicWrapper(app, ['povertyalleviationagencyuser'], () =>
+        import('../routes/PovertyAlleviationAgencyUser/DetailsCurrent/AvatarInfo')
       ),
     },
   };
