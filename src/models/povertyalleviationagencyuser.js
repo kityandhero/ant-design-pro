@@ -151,5 +151,18 @@ export default {
         data: d.data.povertyAlleviationAgencyUser,
       };
     },
+    handleUpdateCurrentBasicInfo(state, action) {
+      let d = action.payload;
+
+      if (d === undefined) {
+        d = {
+          povertyAlleviationAgencyUser: {},
+        };
+      }
+      return {
+        ...state,
+        data: d,
+      };
+    },
   },
 };
