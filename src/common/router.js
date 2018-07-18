@@ -266,19 +266,19 @@ export const getRouterData = app => {
         import('../routes/PovertyAlleviationAgency/DetailsCurrent/ContentInfo')
       ),
     },
-    '/systemconfig/povertyalleviationagencyuser/detailscurrent': {
+    '/systemconfig/povertyalleviationagencyuser/detailscurrent/:op': {
       name: '当前账户信息',
       component: dynamicWrapper(app, ['povertyalleviationagencyuser'], () =>
         import('../routes/PovertyAlleviationAgencyUser/DetailsCurrent')
       ),
     },
-    '/systemconfig/povertyalleviationagencyuser/detailscurrent/basicinfo': {
+    '/systemconfig/povertyalleviationagencyuser/detailscurrent/:op/basicinfo': {
       name: '基本信息',
       component: dynamicWrapper(app, ['povertyalleviationagencyuser'], () =>
         import('../routes/PovertyAlleviationAgencyUser/DetailsCurrent/BasicInfo')
       ),
     },
-    '/systemconfig/povertyalleviationagencyuser/detailscurrent/avatarinfo': {
+    '/systemconfig/povertyalleviationagencyuser/detailscurrent/:op/avatarinfo': {
       name: '设置头像',
       component: dynamicWrapper(app, ['povertyalleviationagencyuser'], () =>
         import('../routes/PovertyAlleviationAgencyUser/DetailsCurrent/AvatarInfo')

@@ -288,7 +288,7 @@ const menuData = [
       {
         name: '当前账户信息',
         icon: 'idcard',
-        path: 'povertyalleviationagencyuser/detailscurrent/basicinfo',
+        path: 'povertyalleviationagencyuser/detailscurrent/load/basicinfo',
       },
     ],
   },

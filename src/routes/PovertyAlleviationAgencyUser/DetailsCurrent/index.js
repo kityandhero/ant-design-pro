@@ -67,15 +67,14 @@ export default class DetailsCurrent extends PureComponent {
 
   componentWillReceiveProps(nextProps) {
     const {
-      location: { pathname },
+      match: {
+        params: { op },
+      },
     } = nextProps;
-    const {
-      dispatch,
-      location: { pathname: pathnamePre },
-    } = this.props;
+    const { dispatch } = this.props;
     const { mounted, dataLoaging } = this.state;
     if (mounted && !dataLoaging) {
-      if (pathnamePre !== pathname) {
+      if (op === 'update') {
         this.setState({ dataLoaging: true });
         dispatch({
           type: 'povertyalleviationagencyuser/getcurrent',
@@ -97,42 +96,28 @@ export default class DetailsCurrent extends PureComponent {
     switch (key) {
       case 'basicinfo':
         location = {
-          pathname: `${match.url}/basicinfo`,
+          pathname: `${match.url.replace('/update', '/load')}/basicinfo`,
         };
         break;
       case 'avatarinfo':
         location = {
-          pathname: `${match.url}/avatarinfo`,
+          pathname: `${match.url.replace('/update', '/load')}/avatarinfo`,
         };
         break;
       case 'passwordinfo':
         location = {
-          pathname: `${match.url}/passwordinfo`,
+          pathname: `${match.url.replace('/update', '/load')}/passwordinfo`,
         };
         break;
       case 'contentinfo':
         location = {
-          pathname: `${match.url}/contentinfo`,
+          pathname: `${match.url.replace('/update', '/load')}/contentinfo`,
         };
         break;
       default:
         break;
     }
     dispatch(routerRedux.push(location));
-    // dispatch(routerRedux.push(location)).then(() => {
-    //   console.dir(1);
-    //   // this.setState({ dataLoaging: true });
-    //   // dispatch({
-    //   //   type: 'povertyalleviationagencyuser/getcurrent',
-    //   //   payload: {},
-    //   // }).then(() => {
-    //   //   this.setState({ dataLoaging: false });
-    //   //   const {
-    //   //     povertyalleviationagencyuser: { data },
-    //   //   } = this.props;
-    //   //   this.setState({ metaData: data });
-    //   // });
-    // });
   };
 
   render() {

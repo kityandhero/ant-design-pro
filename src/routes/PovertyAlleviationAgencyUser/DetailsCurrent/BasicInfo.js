@@ -1,6 +1,19 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
-import { Card, Alert, Button, Form, Row, Col, Input, Spin, BackTop, Divider } from 'antd';
+import { routerRedux } from 'dva/router';
+import {
+  Card,
+  Alert,
+  Button,
+  Form,
+  Row,
+  Col,
+  Input,
+  Spin,
+  BackTop,
+  Divider,
+  notification,
+} from 'antd';
 
 const { TextArea } = Input;
 const FormItem = Form.Item;
@@ -34,26 +47,46 @@ export default class BasicInfo extends PureComponent {
 
   handleSubmit = e => {
     e.preventDefault();
-    const { dispatch, form } = this.props;
+    const {
+      dispatch,
+      form,
+      location: { pathname },
+    } = this.props;
     const { metaData } = this.state;
     form.validateFields((err, values) => {
       if (!err) {
         this.setState({ saving: true });
         const submitValue = values;
-        submitValue.povertyAlleviationAgencyId = metaData.povertyAlleviationAgencyId;
+        submitValue.image = metaData.image;
 
         dispatch({
           type: 'povertyalleviationagencyuser/updatecurrentbasicinfo',
           payload: submitValue,
         }).then(() => {
+          this.setState({ saving: false });
           const {
             povertyalleviationagencyuser: { data },
           } = this.props;
-          const { status } = data;
-          this.setState({ saving: false });
+          const { status, message: messageText } = data;
           if (status === 200) {
-            this.setState({ metaData: data });
+            notification.success({
+              placement: 'bottomRight',
+              message: '操作结果',
+              description: '数据已经保存成功，请进行后续操作。',
+            });
+          } else {
+            notification.error({
+              placement: 'bottomRight',
+              message: '操作结果',
+              description: messageText,
+            });
           }
+
+          dispatch(
+            routerRedux.replace({
+              pathname: `${pathname.replace('/load/', '/update/')}`,
+            })
+          );
         });
       }
     });
