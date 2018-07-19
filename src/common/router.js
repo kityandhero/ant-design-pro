@@ -290,10 +290,16 @@ export const getRouterData = app => {
         import('../routes/PovertyAlleviationAgencyUser/DetailsCurrent/PasswordInfo')
       ),
     },
-    '/systemconfig/povertyalleviationagencyuser/detailscurrent/:op/operatelist': {
+    '/systemconfig/povertyalleviationagencyuser/detailscurrent/:op/operateloglist': {
       name: '设置头像',
       component: dynamicWrapper(app, ['informationchangelog'], () =>
-        import('../routes/PovertyAlleviationAgencyUser/DetailsCurrent/OperateList')
+        import('../routes/PovertyAlleviationAgencyUser/DetailsCurrent/OperateLogList')
+      ),
+    },
+    '/systemconfig/povertyalleviationagencyuser/detailscurrent/:op/loginloglist': {
+      name: '设置头像',
+      component: dynamicWrapper(app, ['povertyalleviationagencyuserloginlog'], () =>
+        import('../routes/PovertyAlleviationAgencyUser/DetailsCurrent/LoginLogList')
       ),
     },
   };

@@ -11,6 +11,30 @@ class TimeLineCustom extends PureComponent {
 
     this.currentTime = null;
     this.currentPageStart = true;
+
+    this.state = {
+      list: [],
+      pagination: {},
+    };
+  }
+
+  componentDidMount() {
+    const {
+      data: { list, pagination },
+    } = this.props;
+
+    this.setState({ list });
+    this.setState({ pagination });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const {
+      data: { list, pagination },
+    } = nextProps;
+    this.currentTime = null;
+    this.currentPageStart = true;
+    this.setState({ list });
+    this.setState({ pagination });
   }
 
   getCreateTimeDatePart = v => {
@@ -19,11 +43,6 @@ class TimeLineCustom extends PureComponent {
 
   getCreateTimeTimePart = v => {
     return moment(v).format('HH:mm');
-  };
-
-  handleTableChange = (pagination, filters, sorter) => {
-    const { onChange } = this.props;
-    onChange(pagination, filters, sorter);
   };
 
   renderDateLabel = v => {
@@ -43,13 +62,21 @@ class TimeLineCustom extends PureComponent {
   };
 
   renderInfo = item => {
+    const {
+      getBackgroundColorKey,
+      getTime,
+      getTitle,
+      getDescription,
+      getBottomLeft,
+      getBottomRight,
+    } = this.props;
     return (
       <div className={styles.liitem}>
         <Icon
           type="message"
           className={styles.fa}
           style={{
-            backgroundColor: getRandomColor(item.informationChangeLogId),
+            backgroundColor: getRandomColor(getBackgroundColorKey(item)),
           }}
         />
         <div className={styles.timelineexitem}>
@@ -67,18 +94,16 @@ class TimeLineCustom extends PureComponent {
                 marginRight: '2px',
               }}
             />
-            {this.getCreateTimeTimePart(item.createTime)}
+            {this.getCreateTimeTimePart(getTime(item))}
           </span>
-          <h3 className={styles.timelineexheader}>
-            <a href="#">{item.agencyUserName}</a> ({item.agencyUserLoginName})
-          </h3>
+          <h3 className={styles.timelineexheader}>{getTitle(item)}</h3>
           <div
             className={styles.timelineexbody}
             style={{
               fontSize: '13px',
             }}
           >
-            {item.operationRemark}
+            {getDescription(item)}
           </div>
           <div className={styles.timelineexfooter}>
             <span
@@ -86,7 +111,7 @@ class TimeLineCustom extends PureComponent {
                 fontSize: '13px',
               }}
             >
-              所属组织：{item.agencyName}
+              {getBottomLeft(item)}
             </span>
             <span
               style={{
@@ -94,7 +119,7 @@ class TimeLineCustom extends PureComponent {
                 fontSize: '13px',
               }}
             >
-              登陆Ip:{item.ip}
+              {getBottomRight(item)}
             </span>
           </div>
         </div>
@@ -102,21 +127,27 @@ class TimeLineCustom extends PureComponent {
     );
   };
 
+  handleTableChange = (pageNo, pageSize) => {
+    const { onChange } = this.props;
+    onChange(pageNo, pageSize);
+  };
+
   render() {
-    const {
-      data: { list, pagination },
-    } = this.props;
+    const { loading, getDateLabel } = this.props;
+    const { list, pagination } = this.state;
 
     const paginationProps = {
       showSizeChanger: true,
       showQuickJumper: true,
       ...pagination,
+      onChange: this.handleTableChange,
     };
 
     return (
       <div className={styles.timelineexbox}>
         <div className={`${styles.timelineex} ${styles.timelineexinverse}`}>
           <List
+            loading={loading}
             itemLayout="vertical"
             size="large"
             pagination={paginationProps}
@@ -131,7 +162,7 @@ class TimeLineCustom extends PureComponent {
                 }}
               >
                 <div>
-                  {this.renderDateLabel(item.createTime)}
+                  {this.renderDateLabel(getDateLabel(item))}
                   {this.renderInfo(item)}
                 </div>
               </List.Item>

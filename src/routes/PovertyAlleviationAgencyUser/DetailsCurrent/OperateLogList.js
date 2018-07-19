@@ -15,13 +15,17 @@ export default class OperateList extends PureComponent {
       list: [],
       pagination: {},
     },
+    pageNo: 1,
+    pageSize: 6,
   };
 
   componentDidMount() {
     const { dispatch } = this.props;
+    const { pageNo, pageSize } = this.state;
+
     dispatch({
       type: 'informationchangelog/listforcurrentoperator',
-      payload: {},
+      payload: { pageNo, pageSize },
     }).then(() => {
       const {
         informationchangelog: { data },
@@ -30,12 +34,12 @@ export default class OperateList extends PureComponent {
     });
   }
 
-  handleStandardTableChange = pagination => {
+  handleStandardTableChange = (pageNo, pageSize) => {
     const { dispatch } = this.props;
 
     const params = {
-      pageNo: pagination.current,
-      pageSize: pagination.pageSize,
+      pageNo,
+      pageSize,
     };
 
     dispatch({
@@ -45,7 +49,10 @@ export default class OperateList extends PureComponent {
       const {
         informationchangelog: { data },
       } = this.props;
+
       this.setState({ customData: data });
+      this.setState({ pageNo });
+      this.setState({ pageSize });
     });
   };
 
@@ -60,6 +67,19 @@ export default class OperateList extends PureComponent {
             loading={loading}
             data={customData}
             onChange={this.handleStandardTableChange}
+            getDateLabel={item => item.createTime}
+            getBackgroundColorKey={item => item.informationChangeLogId}
+            getTime={item => item.createTime}
+            getTitle={item => {
+              return (
+                <div>
+                  <a href="#">{item.agencyUserName}</a> ({item.agencyUserLoginName})
+                </div>
+              );
+            }}
+            getDescription={item => item.operationRemark}
+            getBottomLeft={item => `所属组织：${item.agencyName}`}
+            getBottomRight={item => `操作IP:${item.ip}`}
           />
         </Card>
         <BackTop />
