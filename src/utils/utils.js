@@ -174,6 +174,18 @@ export function getQueryPath(path = '', query = {}) {
   return path;
 }
 
+function seededRandom(seed, min, max) {
+  const maxValue = max || 1;
+  const minValue = min || 0;
+  const seedValue = (seed * 9301 + 49297) % 233280;
+  const rnd = seedValue / 233280.0;
+  return minValue + rnd * (maxValue - minValue);
+}
+
+export function getRandomColor(seed) {
+  return `#${`00000${((seededRandom(seed) * 0x1000000) << 0).toString(16)}`.substr(-6)}`;
+}
+
 /* eslint no-useless-escape:0 */
 const reg = /(((^https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+(?::\d+)?|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)$/;
 
