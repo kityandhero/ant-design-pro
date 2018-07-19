@@ -45,6 +45,11 @@ class TimeLineCustom extends PureComponent {
     return moment(v).format('HH:mm');
   };
 
+  handleTableChange = (pageNo, pageSize) => {
+    const { onChange } = this.props;
+    onChange(pageNo, pageSize);
+  };
+
   renderDateLabel = v => {
     this.currentTime = this.currentTime || v;
     const preTime = this.currentTime || v;
@@ -125,11 +130,6 @@ class TimeLineCustom extends PureComponent {
         </div>
       </div>
     );
-  };
-
-  handleTableChange = (pageNo, pageSize) => {
-    const { onChange } = this.props;
-    onChange(pageNo, pageSize);
   };
 
   render() {
