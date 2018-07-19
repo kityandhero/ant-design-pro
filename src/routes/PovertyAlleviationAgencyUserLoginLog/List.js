@@ -2,8 +2,8 @@ import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
 import { Row, Col, Card, Form, Input, Select, Button, Badge, BackTop } from 'antd';
 import StandardTableCustom from 'components/StandardTableCustom';
+import Ellipsis from 'components/Ellipsis';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
-import Ellipsis from '../../components/Ellipsis';
 import { getCurrentUrlInfo } from '../../utils/tools';
 
 import styles from './List.less';

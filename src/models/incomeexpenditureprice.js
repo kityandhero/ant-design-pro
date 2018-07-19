@@ -1,4 +1,4 @@
-import { message } from 'antd';
+import { message } from '../../node_modules/antd';
 import { queryListData, addData, updateData } from '../services/incomeexpenditureprice';
 
 export default {

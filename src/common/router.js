@@ -290,6 +290,12 @@ export const getRouterData = app => {
         import('../routes/PovertyAlleviationAgencyUser/DetailsCurrent/PasswordInfo')
       ),
     },
+    '/systemconfig/povertyalleviationagencyuser/detailscurrent/:op/operatelist': {
+      name: '设置头像',
+      component: dynamicWrapper(app, ['informationchangelog'], () =>
+        import('../routes/PovertyAlleviationAgencyUser/DetailsCurrent/OperateList')
+      ),
+    },
   };
   // Get name from ./menu.js or just set it in the router data.
   const menuData = getFlatMenuData(getMenuData());

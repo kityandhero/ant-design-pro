@@ -29,8 +29,8 @@ const tabList = [
     tab: '登陆密码',
   },
   {
-    key: 'contentinfo',
-    tab: '详情信息',
+    key: 'operatelist',
+    tab: '操作记录',
   },
 ];
 
@@ -109,9 +109,9 @@ export default class DetailsCurrent extends PureComponent {
           pathname: `${match.url.replace('/update', '/load')}/passwordinfo`,
         };
         break;
-      case 'contentinfo':
+      case 'operatelist':
         location = {
-          pathname: `${match.url.replace('/update', '/load')}/contentinfo`,
+          pathname: `${match.url.replace('/update', '/load')}/operatelist`,
         };
         break;
       default:
