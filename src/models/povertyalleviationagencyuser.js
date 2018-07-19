@@ -4,6 +4,7 @@ import {
   queryPovertyAlleviationAgencyUser,
   queryCurrentPovertyAlleviationAgencyUser,
   updateCurrentBasicInfo,
+  updateCurrentPassword,
   updateCurrentContent,
 } from '../services/povertyalleviationagencyuser';
 
@@ -50,6 +51,13 @@ export default {
       const response = yield call(updateCurrentBasicInfo, payload);
       yield put({
         type: 'handleUpdateCurrentBasicInfo',
+        payload: response,
+      });
+    },
+    *updatecurrentpassword({ payload }, { call, put }) {
+      const response = yield call(updateCurrentPassword, payload);
+      yield put({
+        type: 'handleUpdateCurrentPassword',
         payload: response,
       });
     },
@@ -152,6 +160,19 @@ export default {
       };
     },
     handleUpdateCurrentBasicInfo(state, action) {
+      let d = action.payload;
+
+      if (d === undefined) {
+        d = {
+          povertyAlleviationAgencyUser: {},
+        };
+      }
+      return {
+        ...state,
+        data: d,
+      };
+    },
+    handleUpdateCurrentPassword(state, action) {
       let d = action.payload;
 
       if (d === undefined) {

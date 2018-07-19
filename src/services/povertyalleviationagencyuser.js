@@ -35,6 +35,13 @@ export async function updateCurrentBasicInfo(params) {
   });
 }
 
+export async function updateCurrentPassword(params) {
+  return request('/api/PovertyAlleviationAgencyUser/UpdateCurrentPassword', {
+    method: 'POST',
+    body: params,
+  });
+}
+
 export async function updateCurrentContent(params) {
   return request('/api/PovertyAlleviationAgencyUser/UpdateCurrentContent', {
     method: 'POST',

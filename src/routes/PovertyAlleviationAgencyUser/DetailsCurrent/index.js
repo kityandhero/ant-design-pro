@@ -26,7 +26,7 @@ const tabList = [
   },
   {
     key: 'passwordinfo',
-    tab: '重置密码',
+    tab: '登陆密码',
   },
   {
     key: 'contentinfo',

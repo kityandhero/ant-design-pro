@@ -23,7 +23,7 @@ const { Dragger } = Upload;
   loading: loading.models.povertyalleviationagencyuser,
 }))
 @Form.create()
-export default class BasicInfo extends PureComponent {
+export default class AvatarInfo extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {

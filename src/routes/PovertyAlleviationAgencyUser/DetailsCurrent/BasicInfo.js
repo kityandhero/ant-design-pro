@@ -92,20 +92,20 @@ export default class BasicInfo extends PureComponent {
     });
   };
 
-  handleFormReset = () => {
-    const { dispatch, form } = this.props;
-    form.resetFields();
-    dispatch({
-      type: 'povertyalleviationagencyuser/getcurrent',
-      payload: {},
-    }).then(() => {
-      const {
-        povertyalleviationagencyuser: { data },
-      } = this.props;
-      this.setState({ metaData: data });
-      this.setState({ saving: false });
-    });
-  };
+  // handleFormReset = () => {
+  //   const { dispatch, form } = this.props;
+  //   form.resetFields();
+  //   dispatch({
+  //     type: 'povertyalleviationagencyuser/getcurrent',
+  //     payload: {},
+  //   }).then(() => {
+  //     const {
+  //       povertyalleviationagencyuser: { data },
+  //     } = this.props;
+  //     this.setState({ metaData: data });
+  //     this.setState({ saving: false });
+  //   });
+  // };
 
   render() {
     const { form, loading } = this.props;

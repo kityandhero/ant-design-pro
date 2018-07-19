@@ -284,6 +284,12 @@ export const getRouterData = app => {
         import('../routes/PovertyAlleviationAgencyUser/DetailsCurrent/AvatarInfo')
       ),
     },
+    '/systemconfig/povertyalleviationagencyuser/detailscurrent/:op/passwordinfo': {
+      name: '设置头像',
+      component: dynamicWrapper(app, ['povertyalleviationagencyuser'], () =>
+        import('../routes/PovertyAlleviationAgencyUser/DetailsCurrent/PasswordInfo')
+      ),
+    },
   };
   // Get name from ./menu.js or just set it in the router data.
   const menuData = getFlatMenuData(getMenuData());
