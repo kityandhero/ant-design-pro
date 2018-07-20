@@ -1,18 +1,15 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
 import { Card, Form, BackTop } from 'antd';
 import TimeLineCustom from 'components/TimeLineCustom';
-import PageHeaderLayout from '../../layouts/PageHeaderLayout';
-import { getCurrentUrlInfo } from '../../utils/tools';
 
 @connect(({ povertyalleviationagencyuserloginlog, loading }) => ({
   povertyalleviationagencyuserloginlog,
   loading: loading.models.povertyalleviationagencyuserloginlog,
 }))
 @Form.create()
-export default class List extends PureComponent {
+export default class PovertyAlleviationAgencyUserLoginLogList extends PureComponent {
   state = {
-    pageTitle: '',
     customData: {
       count: 0,
       list: [],
@@ -23,15 +20,11 @@ export default class List extends PureComponent {
   };
 
   componentDidMount() {
-    const { dispatch, location, routerData } = this.props;
-    const { pathname } = location;
-    const currentUrl = getCurrentUrlInfo(routerData, pathname);
-    const { name } = currentUrl;
-    this.setState({ pageTitle: name });
+    const { dispatch } = this.props;
     const { pageNo, pageSize } = this.state;
 
     dispatch({
-      type: 'povertyalleviationagencyuserloginlog/list',
+      type: 'povertyalleviationagencyuserloginlog/listforpovertyalleviationagency',
       payload: { pageNo, pageSize },
     }).then(() => {
       const {
@@ -50,7 +43,7 @@ export default class List extends PureComponent {
     };
 
     dispatch({
-      type: 'povertyalleviationagencyuserloginlog/list',
+      type: 'povertyalleviationagencyuserloginlog/listforpovertyalleviationagency',
       payload: params,
     }).then(() => {
       const {
@@ -65,10 +58,10 @@ export default class List extends PureComponent {
 
   render() {
     const { loading } = this.props;
-    const { customData, pageTitle } = this.state;
+    const { customData } = this.state;
 
     return (
-      <PageHeaderLayout title={`${pageTitle}列表`}>
+      <Fragment>
         <Card style={{ marginBottom: 24 }} bordered={false}>
           <TimeLineCustom
             loading={loading}
@@ -90,7 +83,7 @@ export default class List extends PureComponent {
           />
         </Card>
         <BackTop />
-      </PageHeaderLayout>
+      </Fragment>
     );
   }
 }

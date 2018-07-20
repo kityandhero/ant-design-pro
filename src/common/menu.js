@@ -237,12 +237,12 @@ const menuData = [
           {
             name: '操作日志',
             icon: 'code-o',
-            path: 'operatelog/list',
+            path: 'informationchangelog/list',
           },
           {
             name: '登陆日志',
             icon: 'info-circle-o',
-            path: 'povertyalleviationagencyuserloginlog/listforcurrentpovertyalleviationagency',
+            path: 'povertyalleviationagencyuserloginlog/list',
           },
         ],
       },
@@ -271,7 +271,7 @@ const menuData = [
       {
         name: '当前机构信息',
         icon: 'info-circle-o',
-        path: 'povertyalleviationagency/detailscurrent/basicinfo',
+        path: 'povertyalleviationagency/detailscurrent/load/basicinfo',
       },
       {
         name: '权限管理',

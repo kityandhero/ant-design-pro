@@ -110,5 +110,18 @@ export default {
         data: d.data.povertyAlleviationAgency,
       };
     },
+    handleUpdateCurrentBasicInfo(state, action) {
+      let d = action.payload;
+
+      if (d === undefined) {
+        d = {
+          povertyAlleviationAgency: {},
+        };
+      }
+      return {
+        ...state,
+        data: d,
+      };
+    },
   },
 };

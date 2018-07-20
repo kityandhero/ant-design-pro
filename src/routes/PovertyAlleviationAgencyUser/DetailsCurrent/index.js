@@ -29,11 +29,11 @@ const tabList = [
     tab: '登陆密码',
   },
   {
-    key: 'operateloglist',
+    key: 'informationchangeloglist',
     tab: '操作记录',
   },
   {
-    key: 'loginloglist',
+    key: 'povertyalleviationagencyuserloginloglist',
     tab: '登陆记录',
   },
 ];
@@ -113,14 +113,17 @@ export default class DetailsCurrent extends PureComponent {
           pathname: `${match.url.replace('/update', '/load')}/passwordinfo`,
         };
         break;
-      case 'operateloglist':
+      case 'informationchangeloglist':
         location = {
-          pathname: `${match.url.replace('/update', '/load')}/operateloglist`,
+          pathname: `${match.url.replace('/update', '/load')}/informationchangeloglist`,
         };
         break;
-      case 'loginloglist':
+      case 'povertyalleviationagencyuserloginloglist':
         location = {
-          pathname: `${match.url.replace('/update', '/load')}/loginloglist`,
+          pathname: `${match.url.replace(
+            '/update',
+            '/load'
+          )}/povertyalleviationagencyuserloginloglist`,
         };
         break;
       default:

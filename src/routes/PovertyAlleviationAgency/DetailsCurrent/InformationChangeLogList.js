@@ -1,18 +1,15 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
 import { Card, Form, BackTop } from 'antd';
 import TimeLineCustom from 'components/TimeLineCustom';
-import PageHeaderLayout from '../../layouts/PageHeaderLayout';
-import { getCurrentUrlInfo } from '../../utils/tools';
 
-@connect(({ povertyalleviationagencyuserloginlog, loading }) => ({
-  povertyalleviationagencyuserloginlog,
-  loading: loading.models.povertyalleviationagencyuserloginlog,
+@connect(({ informationchangelog, loading }) => ({
+  informationchangelog,
+  loading: loading.models.informationchangelog,
 }))
 @Form.create()
-export default class List extends PureComponent {
+export default class InformationChangeLogList extends PureComponent {
   state = {
-    pageTitle: '',
     customData: {
       count: 0,
       list: [],
@@ -23,19 +20,15 @@ export default class List extends PureComponent {
   };
 
   componentDidMount() {
-    const { dispatch, location, routerData } = this.props;
-    const { pathname } = location;
-    const currentUrl = getCurrentUrlInfo(routerData, pathname);
-    const { name } = currentUrl;
-    this.setState({ pageTitle: name });
+    const { dispatch } = this.props;
     const { pageNo, pageSize } = this.state;
 
     dispatch({
-      type: 'povertyalleviationagencyuserloginlog/list',
+      type: 'informationchangelog/listforcurrentoperator',
       payload: { pageNo, pageSize },
     }).then(() => {
       const {
-        povertyalleviationagencyuserloginlog: { data },
+        informationchangelog: { data },
       } = this.props;
       this.setState({ customData: data });
     });
@@ -50,11 +43,11 @@ export default class List extends PureComponent {
     };
 
     dispatch({
-      type: 'povertyalleviationagencyuserloginlog/list',
+      type: 'informationchangelog/listforcurrentoperator',
       payload: params,
     }).then(() => {
       const {
-        povertyalleviationagencyuserloginlog: { data },
+        informationchangelog: { data },
       } = this.props;
 
       this.setState({ customData: data });
@@ -65,32 +58,32 @@ export default class List extends PureComponent {
 
   render() {
     const { loading } = this.props;
-    const { customData, pageTitle } = this.state;
+    const { customData } = this.state;
 
     return (
-      <PageHeaderLayout title={`${pageTitle}列表`}>
+      <Fragment>
         <Card style={{ marginBottom: 24 }} bordered={false}>
           <TimeLineCustom
             loading={loading}
             data={customData}
             onChange={this.handleStandardTableChange}
             getDateLabel={item => item.createTime}
-            getBackgroundColorKey={item => item.povertyAlleviationAgencyUserLoginLogId}
+            getBackgroundColorKey={item => item.informationChangeLogId}
             getTime={item => item.createTime}
             getTitle={item => {
               return (
                 <div>
-                  <a href="#">{item.name}</a> ({item.loginName})
+                  <a href="#">{item.agencyUserName}</a> ({item.agencyUserLoginName})
                 </div>
               );
             }}
-            getDescription={item => item.remark}
-            getBottomLeft={item => `所属组织：${item.povertyAlleviationAgencyName}`}
+            getDescription={item => item.operationRemark}
+            getBottomLeft={item => `所属组织：${item.agencyName}`}
             getBottomRight={item => `操作IP:${item.ip}`}
           />
         </Card>
         <BackTop />
-      </PageHeaderLayout>
+      </Fragment>
     );
   }
 }

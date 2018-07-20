@@ -1,5 +1,6 @@
 import {
   queryList,
+  queryListForCurrentOperator,
   queryListForPovertyAlleviationAgency,
 } from '../services/povertyalleviationagencyuserloginlog';
 
@@ -16,6 +17,13 @@ export default {
   effects: {
     *list({ payload }, { call, put }) {
       const response = yield call(queryList, payload);
+      yield put({
+        type: 'handleList',
+        payload: response,
+      });
+    },
+    *listforcurrentoperator({ payload }, { call, put }) {
+      const response = yield call(queryListForCurrentOperator, payload);
       yield put({
         type: 'handleList',
         payload: response,

@@ -228,9 +228,14 @@ export const getRouterData = app => {
         import('../routes/ErrorLog/Details/ParamInfo')
       ),
     },
-    '/systemconfig/log/povertyalleviationagencyuserloginlog/listforcurrentpovertyalleviationagency': {
+    '/systemconfig/log/informationchangelog/list': {
+      component: dynamicWrapper(app, ['informationchangelog'], () =>
+        import('../routes/InformationChangeLog/List')
+      ),
+    },
+    '/systemconfig/log/povertyalleviationagencyuserloginlog/list': {
       component: dynamicWrapper(app, ['povertyalleviationagencyuserloginlog'], () =>
-        import('../routes/PovertyAlleviationAgencyUserLoginLog/ListForCurrentPovertyAlleviationAgency')
+        import('../routes/PovertyAlleviationAgencyUserLoginLog/List')
       ),
     },
     '/systemconfig/excelimporthistory/list': {
@@ -243,27 +248,39 @@ export const getRouterData = app => {
         import('../routes/PovertyAlleviationAgencyUser/List')
       ),
     },
-    '/systemconfig/account/povertyalleviationagencyuser/listforcurrentpovertyalleviationagency': {
-      component: dynamicWrapper(app, ['povertyalleviationagencyuser'], () =>
-        import('../routes/PovertyAlleviationAgencyUser/ListForCurrentPovertyAlleviationAgency')
-      ),
-    },
-    '/systemconfig/povertyalleviationagency/detailscurrent': {
+    // '/systemconfig/account/povertyalleviationagencyuser/listforcurrentpovertyalleviationagency': {
+    //   component: dynamicWrapper(app, ['povertyalleviationagencyuser'], () =>
+    //     import('../routes/PovertyAlleviationAgencyUser/ListForCurrentPovertyAlleviationAgency')
+    //   ),
+    // },
+    '/systemconfig/povertyalleviationagency/detailscurrent/:op': {
       name: '当前机构信息',
       component: dynamicWrapper(app, ['povertyalleviationagency'], () =>
         import('../routes/PovertyAlleviationAgency/DetailsCurrent')
       ),
     },
-    '/systemconfig/povertyalleviationagency/detailscurrent/basicinfo': {
+    '/systemconfig/povertyalleviationagency/detailscurrent/:op/basicinfo': {
       name: '基本信息',
       component: dynamicWrapper(app, ['povertyalleviationagency'], () =>
         import('../routes/PovertyAlleviationAgency/DetailsCurrent/BasicInfo')
       ),
     },
-    '/systemconfig/povertyalleviationagency/detailscurrent/contentinfo': {
+    '/systemconfig/povertyalleviationagency/detailscurrent/:op/contentinfo': {
       name: '详情信息',
       component: dynamicWrapper(app, ['povertyalleviationagency'], () =>
         import('../routes/PovertyAlleviationAgency/DetailsCurrent/ContentInfo')
+      ),
+    },
+    '/systemconfig/povertyalleviationagency/detailscurrent/:op/informationchangeloglist': {
+      name: '操作记录',
+      component: dynamicWrapper(app, ['informationchangelog'], () =>
+        import('../routes/PovertyAlleviationAgency/DetailsCurrent/InformationChangeLogList')
+      ),
+    },
+    '/systemconfig/povertyalleviationagency/detailscurrent/:op/povertyalleviationagencyuserloginloglist': {
+      name: '登陆日志',
+      component: dynamicWrapper(app, ['povertyalleviationagencyuserloginlog'], () =>
+        import('../routes/PovertyAlleviationAgency/DetailsCurrent/PovertyAlleviationAgencyUserLoginLogList')
       ),
     },
     '/systemconfig/povertyalleviationagencyuser/detailscurrent/:op': {
@@ -285,21 +302,21 @@ export const getRouterData = app => {
       ),
     },
     '/systemconfig/povertyalleviationagencyuser/detailscurrent/:op/passwordinfo': {
-      name: '设置头像',
+      name: '重置密码',
       component: dynamicWrapper(app, ['povertyalleviationagencyuser'], () =>
         import('../routes/PovertyAlleviationAgencyUser/DetailsCurrent/PasswordInfo')
       ),
     },
-    '/systemconfig/povertyalleviationagencyuser/detailscurrent/:op/operateloglist': {
-      name: '设置头像',
+    '/systemconfig/povertyalleviationagencyuser/detailscurrent/:op/informationchangeloglist': {
+      name: '操作记录',
       component: dynamicWrapper(app, ['informationchangelog'], () =>
-        import('../routes/PovertyAlleviationAgencyUser/DetailsCurrent/OperateLogList')
+        import('../routes/PovertyAlleviationAgencyUser/DetailsCurrent/InformationChangeLogList')
       ),
     },
-    '/systemconfig/povertyalleviationagencyuser/detailscurrent/:op/loginloglist': {
-      name: '设置头像',
+    '/systemconfig/povertyalleviationagencyuser/detailscurrent/:op/povertyalleviationagencyuserloginloglist': {
+      name: '登陆日志',
       component: dynamicWrapper(app, ['povertyalleviationagencyuserloginlog'], () =>
-        import('../routes/PovertyAlleviationAgencyUser/DetailsCurrent/LoginLogList')
+        import('../routes/PovertyAlleviationAgencyUser/DetailsCurrent/PovertyAlleviationAgencyUserLoginLogList')
       ),
     },
   };

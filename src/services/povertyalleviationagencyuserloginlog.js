@@ -7,6 +7,13 @@ export async function queryList(params) {
   });
 }
 
+export async function queryListForCurrentOperator(params) {
+  return request('/api/PovertyAlleviationAgencyUserLoginLog/ListForCurrentOperator', {
+    method: 'POST',
+    body: params,
+  });
+}
+
 export async function queryListForPovertyAlleviationAgency(params) {
   return request(
     '/api/PovertyAlleviationAgencyUserLoginLog/ListForCurrentPovertyAlleviationAgency',

@@ -3,12 +3,12 @@ import { connect } from 'dva';
 import { Card, Form, BackTop } from 'antd';
 import TimeLineCustom from 'components/TimeLineCustom';
 
-@connect(({ informationchangelog, loading }) => ({
-  informationchangelog,
-  loading: loading.models.informationchangelog,
+@connect(({ povertyalleviationagencyuserloginlog, loading }) => ({
+  povertyalleviationagencyuserloginlog,
+  loading: loading.models.povertyalleviationagencyuserloginlog,
 }))
 @Form.create()
-export default class OperateList extends PureComponent {
+export default class PovertyAlleviationAgencyUserLoginLogList extends PureComponent {
   state = {
     customData: {
       count: 0,
@@ -24,11 +24,11 @@ export default class OperateList extends PureComponent {
     const { pageNo, pageSize } = this.state;
 
     dispatch({
-      type: 'informationchangelog/listforcurrentoperator',
+      type: 'povertyalleviationagencyuserloginlog/listforcurrentoperator',
       payload: { pageNo, pageSize },
     }).then(() => {
       const {
-        informationchangelog: { data },
+        povertyalleviationagencyuserloginlog: { data },
       } = this.props;
       this.setState({ customData: data });
     });
@@ -43,11 +43,11 @@ export default class OperateList extends PureComponent {
     };
 
     dispatch({
-      type: 'informationchangelog/listforcurrentoperator',
+      type: 'povertyalleviationagencyuserloginlog/listforcurrentoperator',
       payload: params,
     }).then(() => {
       const {
-        informationchangelog: { data },
+        povertyalleviationagencyuserloginlog: { data },
       } = this.props;
 
       this.setState({ customData: data });
@@ -68,17 +68,17 @@ export default class OperateList extends PureComponent {
             data={customData}
             onChange={this.handleStandardTableChange}
             getDateLabel={item => item.createTime}
-            getBackgroundColorKey={item => item.informationChangeLogId}
+            getBackgroundColorKey={item => item.povertyAlleviationAgencyUserLoginLogId}
             getTime={item => item.createTime}
             getTitle={item => {
               return (
                 <div>
-                  <a href="#">{item.agencyUserName}</a> ({item.agencyUserLoginName})
+                  <a href="#">{item.name}</a> ({item.loginName})
                 </div>
               );
             }}
-            getDescription={item => item.operationRemark}
-            getBottomLeft={item => `所属组织：${item.agencyName}`}
+            getDescription={item => item.remark}
+            getBottomLeft={item => `所属组织：${item.povertyAlleviationAgencyName}`}
             getBottomRight={item => `操作IP:${item.ip}`}
           />
         </Card>
