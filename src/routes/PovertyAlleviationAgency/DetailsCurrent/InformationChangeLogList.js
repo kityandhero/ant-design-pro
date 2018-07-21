@@ -24,7 +24,7 @@ export default class InformationChangeLogList extends PureComponent {
     const { pageNo, pageSize } = this.state;
 
     dispatch({
-      type: 'informationchangelog/listforcurrentoperator',
+      type: 'informationchangelog/listforcurrentpovertyalleviationagency',
       payload: { pageNo, pageSize },
     }).then(() => {
       const {
@@ -43,7 +43,7 @@ export default class InformationChangeLogList extends PureComponent {
     };
 
     dispatch({
-      type: 'informationchangelog/listforcurrentoperator',
+      type: 'informationchangelog/listforcurrentpovertyalleviationagency',
       payload: params,
     }).then(() => {
       const {

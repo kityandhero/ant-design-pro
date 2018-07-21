@@ -13,3 +13,10 @@ export async function queryListForCurrentOperator(params) {
     body: params,
   });
 }
+
+export async function queryListForCurrentPovertyAlleviationAgency(params) {
+  return request('/api/InformationChangeLog/ListForCurrentPovertyAlleviationAgency', {
+    method: 'POST',
+    body: params,
+  });
+}
