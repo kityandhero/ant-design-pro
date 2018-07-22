@@ -21,9 +21,11 @@ import {
   // message,
   Badge,
   Divider,
+  BackTop,
 } from 'antd';
 import StandardTableCustom from 'components/StandardTableCustom';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
+import Ellipsis from '../../components/Ellipsis';
 import { getCurrentUrlInfo } from '../../utils/tools';
 
 import styles from './List.less';
@@ -71,6 +73,7 @@ export default class List extends PureComponent {
       list: [],
       pagination: {},
     },
+    pageSize: 10,
   };
 
   componentDidMount() {
@@ -80,12 +83,13 @@ export default class List extends PureComponent {
     const { type, category } = params;
     const currentUrl = getCurrentUrlInfo(routerData, pathname);
     const { name } = currentUrl;
+    const { pageSize } = this.state;
     this.setState({ pageTitle: name });
     this.setState({ type });
     this.setState({ category });
     dispatch({
       type: 'povertyalleviationagency/list',
-      payload: { type, category },
+      payload: { type, category, pageSize },
     }).then(() => {
       this.setState({ mounted: true });
       const {
@@ -99,7 +103,7 @@ export default class List extends PureComponent {
     const { params } = nextProps.match;
     const nextType = params.type;
     const nextCategory = params.category;
-    const { type, category, mounted } = this.state;
+    const { type, category, mounted, pageSize } = this.state;
     if (mounted) {
       if (type !== nextType || category !== nextCategory) {
         this.setState({ type: nextType });
@@ -110,6 +114,7 @@ export default class List extends PureComponent {
           payload: {
             type: nextType,
             category: nextCategory,
+            pageSize,
           },
         }).then(() => {
           const {
@@ -299,88 +304,82 @@ export default class List extends PureComponent {
     const columns = [
       {
         title: 'Id',
-        dataIndex: 'povertyalleviationagencyId',
-        width: 60,
+        dataIndex: 'povertyAlleviationAgencyId',
+        width: 66,
         align: 'center',
         fixed: 'left',
       },
       {
-        title: '名称',
+        title: '机构名称',
         dataIndex: 'name',
         width: 120,
         align: 'center',
         fixed: 'left',
+        render: val => (
+          <Fragment>
+            <Ellipsis tooltip lines={1}>
+              {val}
+            </Ellipsis>
+          </Fragment>
+        ),
+      },
+      {
+        title: '管理等级',
+        dataIndex: 'regionalLevelNote',
+        width: 120,
+        align: 'center',
+        render: val => (
+          <Fragment>
+            <Ellipsis tooltip lines={1}>
+              {val}
+            </Ellipsis>
+          </Fragment>
+        ),
+      },
+      {
+        title: '直属上级',
+        dataIndex: 'parentName',
+        width: 140,
+        align: 'center',
+        render: val => (
+          <Fragment>
+            <Ellipsis tooltip lines={1}>
+              {val}
+            </Ellipsis>
+          </Fragment>
+        ),
+      },
+      {
+        title: '管辖地区',
+        dataIndex: 'provinceName',
+        align: 'center',
         render: (val, record) => (
           <Fragment>
-            <Tooltip placement="right" title={`${record.name} ${record.description}`}>
-              <span className="oneLineText">{val}</span>
-            </Tooltip>
+            <Ellipsis tooltip lines={1}>
+              {`${record.provinceName} ${record.cityName} ${record.districtName} ${
+                record.areaName
+              }`}
+            </Ellipsis>
           </Fragment>
         ),
       },
       {
-        title: '类型',
-        dataIndex: 'categoryName',
+        title: '账户数量',
+        dataIndex: 'userCount',
+        width: 100,
         align: 'center',
         render: val => (
           <Fragment>
-            <Tooltip placement="right" title={val}>
-              <span className="oneLineText">{val}</span>
-            </Tooltip>
-          </Fragment>
-        ),
-      },
-      {
-        title: '单位',
-        dataIndex: 'unitName',
-        align: 'center',
-        render: val => (
-          <Fragment>
-            <Tooltip placement="right" title={val}>
-              <span className="oneLineText">{val}</span>
-            </Tooltip>
-          </Fragment>
-        ),
-      },
-      {
-        title: '最高价',
-        dataIndex: 'max',
-        align: 'center',
-        render: val => (
-          <Fragment>
-            <Tooltip placement="right" title={val}>
-              <span className="oneLineText">{val}</span>
-            </Tooltip>
-          </Fragment>
-        ),
-      },
-      {
-        title: '最低价',
-        dataIndex: 'min',
-        align: 'center',
-        render: val => (
-          <Fragment>
-            <Tooltip placement="right" title={val}>
-              <span className="oneLineText">{val}</span>
-            </Tooltip>
-          </Fragment>
-        ),
-      },
-      {
-        title: '均价',
-        dataIndex: 'average',
-        align: 'center',
-        render: val => (
-          <Fragment>
-            <Tooltip placement="right" title={val}>
-              <span className="oneLineText">{val}</span>
-            </Tooltip>
+            <Ellipsis tooltip lines={1}>
+              {val}
+            </Ellipsis>
           </Fragment>
         ),
       },
       {
         title: '创建时间',
         dataIndex: 'createTime',
+        width: 124,
         align: 'center',
         sorter: false,
         render: val => (
@@ -394,6 +393,7 @@ export default class List extends PureComponent {
       {
         title: '状态',
         dataIndex: 'status',
+        width: 100,
         align: 'center',
         filters: status,
         filterMultiple: false,
@@ -441,6 +441,7 @@ export default class List extends PureComponent {
             />
           </div>
         </Card>
+        <BackTop />
       </PageHeaderLayout>
     );
   }

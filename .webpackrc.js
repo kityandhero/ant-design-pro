@@ -8,8 +8,8 @@ export default {
       extraBabelPlugins: ['dva-hmr'],
       proxy: {
         '/api': {
-          target: 'http://sys.pa.com/',
-          // target: 'http://test.pa.9gms.net/',
+          // target: 'http://sys.pa.com/',
+          target: 'http://test.pa.9gms.net/',
           changeOrigin: true,
           pathRewrite: { '^/api': '' },
         },
