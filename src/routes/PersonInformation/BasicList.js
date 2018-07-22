@@ -19,6 +19,7 @@ import {
   // message,
   Badge,
   // Divider,
+  BackTop,
 } from 'antd';
 import StandardTableCustom from 'components/StandardTableCustom';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
@@ -435,6 +436,7 @@ export default class BasicList extends PureComponent {
             />
           </div>
         </Card>
+        <BackTop />
       </PageHeaderLayout>
     );
   }

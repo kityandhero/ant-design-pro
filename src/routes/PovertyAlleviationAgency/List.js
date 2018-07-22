@@ -20,7 +20,7 @@ import {
   // Modal,
   // message,
   Badge,
-  Divider,
+  // Divider,
   BackTop,
 } from 'antd';
 import StandardTableCustom from 'components/StandardTableCustom';
@@ -279,10 +279,6 @@ export default class List extends PureComponent {
               </Button>
               <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>
                 重置
-              </Button>
-              <Divider type="vertical" />
-              <Button type="primary" onClick={this.showAddNewModal}>
-                新增标准
               </Button>
             </span>
           </Col>
