@@ -1,4 +1,8 @@
-import { queryList, queryListForCurrentOperator } from '../services/informationchangelog';
+import {
+  queryList,
+  queryListForCurrentOperator,
+  queryListForCurrentPovertyAlleviationAgency,
+} from '../services/informationchangelog';
 
 export default {
   namespace: 'informationchangelog',
@@ -20,6 +24,13 @@ export default {
     },
     *listforcurrentoperator({ payload }, { call, put }) {
       const response = yield call(queryListForCurrentOperator, payload);
+      yield put({
+        type: 'handleList',
+        payload: response,
+      });
+    },
+    *listforcurrentpovertyalleviationagency({ payload }, { call, put }) {
+      const response = yield call(queryListForCurrentPovertyAlleviationAgency, payload);
       yield put({
         type: 'handleList',
         payload: response,
