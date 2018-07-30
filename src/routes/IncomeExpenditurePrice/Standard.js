@@ -21,6 +21,7 @@ import {
   // message,
   Badge,
   Divider,
+  BackTop,
 } from 'antd';
 import StandardTableCustom from 'components/StandardTableCustom';
 import StandardModal from './StandardModal';
@@ -515,6 +516,7 @@ export default class Standard extends PureComponent {
           afterOK={this.afterUpdateItemModalOk}
           afterCancel={this.afterUpdateItemModalCanel}
         />
+        <BackTop />
       </PageHeaderLayout>
     );
   }
