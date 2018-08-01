@@ -1,5 +1,5 @@
 import fetch from 'dva/fetch';
-import { notification } from 'antd';
+import { notification, message } from 'antd';
 import { routerRedux } from 'dva/router';
 import store from '../index';
 
@@ -89,6 +89,12 @@ export default function request(url, options) {
         if (status === 405) {
           throw new Error('405');
         }
+
+        if (status === 500) {
+          const { message: messageText } = response;
+          message.error(messageText);
+          throw new Error('500');
+        }
       }
 
       return response;
@@ -96,6 +102,11 @@ export default function request(url, options) {
     .catch(e => {
       const { dispatch } = store;
       if (e.message === '405') {
+        dispatch(routerRedux.replace('/user/login'));
+        return;
+      }
+
+      if (e.message === '500') {
         dispatch(routerRedux.replace('/user/login'));
         return;
       }
