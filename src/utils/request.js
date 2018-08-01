@@ -38,11 +38,16 @@ function checkStatus(response) {
 /**
  * Requests a URL, returning a promise.
  *
- * @param  {string} url       The URL we want to request
+ * @param  {string} urlparam       The URL we want to request
  * @param  {object} [options] The options we want to pass to "fetch"
  * @return {object}           An object containing either "data" or "err"
  */
-export default function request(url, options) {
+export default function request(urlparam, options) {
+  const url =
+    process.env.NODE_ENV === 'development'
+      ? urlparam
+      : `http://sys.pa.com${urlparam.replace('/api/', '/')}`;
+
   const defaultOptions = {
     credentials: 'include',
     headers: {
