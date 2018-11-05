@@ -16,7 +16,7 @@ import {
   // Select,
 } from 'antd';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import { docco } from 'react-syntax-highlighter/styles/hljs';
+// import { docco } from 'react-syntax-highlighter/styles/hljs';
 import DescriptionList from '../../../components/DescriptionList';
 import styles from './BasicInfo.less';
 
@@ -29,7 +29,7 @@ const { Description } = DescriptionList;
   loading: loading.models.errorlog,
 }))
 @Form.create()
-export default class BasicInfo extends PureComponent {
+class BasicInfo extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -66,7 +66,10 @@ export default class BasicInfo extends PureComponent {
                   marginBottom: '16px',
                 }}
               >
-                <SyntaxHighlighter language="javascript" style={docco}>
+                <SyntaxHighlighter
+                  language="javascript"
+                  // style={docco}
+                >
                   {JSON.stringify(metaData.headerJson || '', null, '    ')}
                 </SyntaxHighlighter>
               </Description>
@@ -76,7 +79,10 @@ export default class BasicInfo extends PureComponent {
                   marginBottom: '16px',
                 }}
               >
-                <SyntaxHighlighter language="javascript" style={docco}>
+                <SyntaxHighlighter
+                  language="javascript"
+                  //  style={docco}
+                >
                   {JSON.stringify(metaData.urlParamsJson || '', null, '    ')}
                 </SyntaxHighlighter>
               </Description>
@@ -86,7 +92,10 @@ export default class BasicInfo extends PureComponent {
                   marginBottom: '16px',
                 }}
               >
-                <SyntaxHighlighter language="javascript" style={docco}>
+                <SyntaxHighlighter
+                  language="javascript"
+                  //  style={docco}
+                >
                   {JSON.stringify(metaData.formParamsJson || '', null, '    ')}
                 </SyntaxHighlighter>
               </Description>
@@ -98,3 +107,5 @@ export default class BasicInfo extends PureComponent {
     );
   }
 }
+
+export default BasicInfo;

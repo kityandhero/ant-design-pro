@@ -4,14 +4,14 @@ import { Card, Form, Spin, Button, BackTop } from 'antd';
 
 // 引入编辑器以及编辑器样式
 import BraftEditor from 'braft-editor';
-import 'braft-editor/dist/braft.css';
+import 'braft-editor/dist/index.css';
 
 @connect(({ povertyalleviationagency, loading }) => ({
   povertyalleviationagency,
   loading: loading.models.povertyalleviationagency,
 }))
 @Form.create()
-export default class BasicInfo extends PureComponent {
+class ContentInfo extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -107,3 +107,5 @@ export default class BasicInfo extends PureComponent {
     );
   }
 }
+
+export default ContentInfo;
