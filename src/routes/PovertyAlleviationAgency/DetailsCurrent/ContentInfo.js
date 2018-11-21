@@ -97,6 +97,7 @@ class ContentInfo extends PureComponent {
                 {...editorProps}
                 ref={instance => {
                   this.editorInstance = instance;
+                  console.dir(instance);
                 }}
               />
             </div>
